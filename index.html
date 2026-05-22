@@ -91,6 +91,21 @@ body{font-family:Jost,sans-serif;background:var(--cream);color:var(--text);overf
 .qty{display:flex;align-items:center;gap:.5rem;margin-top:.7rem;flex-wrap:wrap}
 .qty button{width:28px;height:28px;border-radius:50%;border:1px solid var(--border);background:#fff;cursor:pointer}
 .remove{color:var(--danger);border:0!important;background:transparent!important;cursor:pointer;width:auto!important;font-weight:800}
+
+.cart-item .cart-meta{font-size:.72rem;color:var(--muted);line-height:1.5;margin:.25rem 0 .35rem}
+.cart-item .line-total{font-weight:900;color:var(--dark);margin-top:.35rem}
+.qty{background:var(--soft);border:1px solid var(--border);border-radius:999px;padding:.35rem .45rem;width:max-content}
+.qty span{min-width:22px;text-align:center;font-weight:900}
+.qty button{font-weight:900;transition:.2s}
+.qty button:hover{background:var(--dark);color:#fff}
+.remove{padding:.25rem .4rem!important;border-radius:999px!important}
+.remove:hover{background:#fff0f0!important}
+.cart-note{font-size:.78rem;color:var(--muted);line-height:1.5;margin:.7rem 0 1rem}
+.cart-total-row{display:flex;justify-content:space-between;align-items:center;background:var(--soft);border:1px solid var(--border);padding:.9rem;border-radius:16px;margin-bottom:1rem}
+.cart-total-row span{color:var(--muted);font-size:.75rem;text-transform:uppercase;letter-spacing:.12em;font-weight:900}
+.cart-total-row strong{font-size:1.25rem}
+.clear-cart{width:100%;border:0;background:transparent;color:var(--danger);font-weight:900;cursor:pointer;margin-top:.75rem}
+
 .cart-bottom{padding:1.4rem;border-top:1px solid var(--border)}
 .subtotal{display:flex;justify-content:space-between;margin-bottom:1rem;font-weight:900;font-size:1.1rem}
 .whatsapp{display:block;text-align:center;background:#25d366;color:#fff;text-decoration:none;padding:1rem;border-radius:999px;font-weight:900;letter-spacing:.12em;text-transform:uppercase;font-size:.75rem}
@@ -200,7 +215,7 @@ transform:translateX(-50%) translateY(0);
 
 <footer class="site-footer" id="about"><h3>B.I.G Boutique</h3><p id="contact">A simple marketplace-style fashion store. Search, add to cart, and order on WhatsApp.</p></footer>
 <div class="overlay" id="overlay"></div>
-<aside class="cart-panel" id="cartPanel"><div class="cart-head"><h3>Your Cart</h3><button class="close" id="closeCart">×</button></div><div class="cart-items" id="cartItems"></div><div class="cart-bottom"><div class="subtotal"><span>Total</span><strong id="cartTotal">GHC0</strong></div><a class="whatsapp" id="whatsappOrder" target="_blank" href="#">Order on WhatsApp</a></div></aside>
+<aside class="cart-panel" id="cartPanel"><div class="cart-head"><h3>Your Cart</h3><button class="close" id="closeCart">×</button></div><div class="cart-items" id="cartItems"></div><div class="cart-bottom"><p class="cart-note">Review your items, then checkout on WhatsApp. We will confirm color, size, and delivery cost.</p><div class="cart-total-row"><span>Total</span><strong id="cartTotal">GHC0</strong></div><a class="whatsapp" id="whatsappOrder" target="_blank" href="#">Order on WhatsApp</a><button class="clear-cart" id="clearCart">Clear cart</button></div></aside>
 <a class="float-wa" href="https://wa.me/233557254378?text=Hello%20B.I.G,%20I%20want%20to%20ask%20about%20your%20products." target="_blank">☘</a>
 
 <script>
@@ -309,6 +324,7 @@ toast.remove();
 function addToCart(id){const product=PRODUCTS.find(p=>p.id===id);if(!product)return;const stock=Number(product.stock||0),existing=cart.find(i=>i.id===id),current=existing?existing.qty:0;if(cleanStatus(product)!=='available'||stock<=0){showToast('This product is not available. Tap ASK to chat with us.');return}if(current>=stock){showToast(`Only ${product.stock} available in stock.`);return}if(existing)existing.qty++;else cart.push({...product,qty:1});renderCart();openCart()}
 function changeQty(id,amount){const item=cart.find(i=>i.id===id);if(!item)return;const product=PRODUCTS.find(p=>p.id===id);const stock=Number(product?.stock||item.stock||0);if(amount>0&&item.qty>=stock){showToast(`Only ${stock} available in stock.`);return}item.qty+=amount;if(item.qty<=0)cart=cart.filter(i=>i.id!==id);renderCart()}
 function removeItem(id){cart=cart.filter(i=>i.id!==id);renderCart()}
+function clearCart(){cart=[];renderCart();showToast('Cart cleared.')}
 function renderCart(){
 cartCount.textContent=cart.reduce((s,i)=>s+i.qty,0);
 const total=cart.reduce((s,i)=>s+i.price*i.qty,0);
@@ -326,8 +342,11 @@ cartItems.innerHTML=cart.map(i=>`
 <img src="${i.image_url}" alt="${i.name}">
 <div>
 <h4>${i.name}</h4>
-<p>${money(i.price)} each</p>
-<small>${i.colors?'Colors: '+i.colors:''} ${i.sizes?' | Sizes: '+i.sizes:''}</small>
+<div class="cart-meta">
+<div>${money(i.price)} each</div>
+<div>${i.colors?'Colors: '+i.colors:''}${i.sizes?' | Sizes: '+i.sizes:''}</div>
+</div>
+<div class="line-total">${money(i.price*i.qty)}</div>
 <div class="qty">
 <button onclick="changeQty(${i.id},-1)">−</button>
 <span>${i.qty}</span>
@@ -345,7 +364,7 @@ whatsappOrder.textContent='Checkout on WhatsApp';
 }
 function openCart(){cartPanel.classList.add('open');overlay.classList.add('open')}
 function closeCart(){cartPanel.classList.remove('open');overlay.classList.remove('open')}
-document.getElementById('openCart').addEventListener('click',openCart);document.getElementById('closeCart').addEventListener('click',closeCart);overlay.addEventListener('click',closeCart);
+document.getElementById('openCart').addEventListener('click',openCart);document.getElementById('closeCart').addEventListener('click',closeCart);document.getElementById('clearCart').addEventListener('click',clearCart);overlay.addEventListener('click',closeCart);
 document.querySelectorAll('[data-cat]').forEach(btn=>btn.addEventListener('click',()=>setCategory(btn.dataset.cat)));
 searchInput.addEventListener('input',e=>{searchTerm=e.target.value.trim();activeCat=searchCategory.value;visibleCount=8;renderProducts()});
 searchCategory.addEventListener('change',()=>{activeCat=searchCategory.value;visibleCount=8;renderProducts()});

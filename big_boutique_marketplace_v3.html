@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>B.I.G Boutique</title>
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600;700;800&family=Cormorant+Garamond:wght@500;600&display=swap" rel="stylesheet">
+<style>
+:root{--dark:#090909;--gold:#d4af37;--cream:#fffaf0;--soft:#f7f3ec;--text:#161616;--muted:#777;--border:#e7ddcf;--danger:#b94040;--ok:#16803c;--orange:#d66b00;--shadow:0 18px 40px rgba(0,0,0,.08)}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:Jost,sans-serif;background:var(--cream);color:var(--text);overflow-x:hidden}
+.topbar{height:72px;padding:0 4%;display:grid;grid-template-columns:auto 1fr auto;gap:1rem;align-items:center;background:rgba(255,250,240,.97);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:80;backdrop-filter:blur(10px)}
+.logo{text-decoration:none;color:var(--dark);font-family:"Cormorant Garamond",serif;font-size:1.85rem;letter-spacing:.18em;line-height:.9;font-weight:600;white-space:nowrap}
+.logo span{display:block;font-family:Jost,sans-serif;font-size:.58rem;color:var(--gold);letter-spacing:.34em;margin-top:.34rem;text-transform:uppercase}
+.search-wrap{display:flex;align-items:center;max-width:700px;margin:auto;width:100%;background:#fff;border:1px solid var(--border);border-radius:999px;overflow:hidden;box-shadow:0 8px 22px rgba(0,0,0,.04)}
+.search-wrap select{border:0;background:var(--soft);padding:1rem .8rem;outline:none;font-weight:700}
+.search-wrap input{border:0;outline:0;width:100%;padding:1rem;font-size:1rem;font-family:Jost,sans-serif}
+.search-wrap button{border:0;background:var(--gold);color:var(--dark);font-weight:800;padding:1rem 1.2rem;cursor:pointer}
+.actions{display:flex;gap:.7rem;align-items:center}
+.chat-btn{display:inline-block;text-decoration:none;background:var(--dark);color:#fff;border-radius:999px;padding:.75rem 1rem;font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;font-weight:800}
+.cart-btn{position:relative;width:46px;height:46px;border:1px solid var(--border);border-radius:50%;background:#fff;cursor:pointer;font-size:1.3rem;box-shadow:0 8px 20px rgba(0,0,0,.05)}
+.cart-count{position:absolute;top:-6px;right:-4px;width:20px;height:20px;border-radius:50%;background:var(--gold);color:#fff;font-size:.72rem;display:flex;align-items:center;justify-content:center;font-weight:800}
+
+.hero-market{display:grid;grid-template-columns:220px 1fr;gap:1.2rem;padding:1.2rem 4%;max-width:1400px;margin:auto}
+.side-cats{background:#fff;border:1px solid var(--border);border-radius:22px;padding:1rem;box-shadow:var(--shadow)}
+.side-cats h3{font-size:.78rem;text-transform:uppercase;letter-spacing:.18em;margin-bottom:.8rem}
+.cat-link{display:flex;justify-content:space-between;align-items:center;padding:.82rem .5rem;border-bottom:1px solid var(--border);cursor:pointer;font-weight:600;color:var(--text)}
+.cat-link:last-child{border-bottom:0}
+.cat-link:hover{color:var(--gold)}
+.market-main{display:grid;gap:1rem}
+.promo{min-height:230px;border-radius:24px;background:linear-gradient(135deg,rgba(0,0,0,.8),rgba(0,0,0,.52)),url('https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=1400') center/cover;color:#fff;padding:2rem;display:flex;flex-direction:column;justify-content:center;position:relative;overflow:hidden}
+.promo small{color:var(--gold);letter-spacing:.45em;text-transform:uppercase;font-size:.65rem;font-weight:800}
+.promo h1{font-family:"Cormorant Garamond",serif;font-size:clamp(2.1rem,5vw,4.2rem);font-weight:600;line-height:.98;margin:.65rem 0}
+.promo p{max-width:560px;color:#eee;line-height:1.7}
+.promo .cta{margin-top:1.2rem;display:inline-block;width:max-content;background:var(--gold);color:var(--dark);text-decoration:none;border-radius:999px;padding:.9rem 1.6rem;font-weight:900;font-size:.72rem;letter-spacing:.16em;text-transform:uppercase}
+.quick-tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem}
+.tile{min-height:120px;border-radius:20px;background:#fff;border:1px solid var(--border);box-shadow:var(--shadow);overflow:hidden;position:relative;padding:1rem;display:flex;flex-direction:column;justify-content:flex-end;cursor:pointer}
+.tile:before{content:"";position:absolute;inset:0;background:linear-gradient(transparent,rgba(0,0,0,.55));z-index:1}
+.tile img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.tile span{position:relative;z-index:2;color:#fff;font-weight:900;letter-spacing:.12em;text-transform:uppercase;font-size:.78rem}
+
+.mini-strip{display:flex;overflow:auto;gap:.8rem;padding:0 4% 1rem;max-width:1400px;margin:auto;scrollbar-width:none}
+.mini-strip::-webkit-scrollbar{display:none}
+.pill{flex:0 0 auto;border:1px solid var(--border);background:#fff;border-radius:999px;padding:.72rem 1.2rem;font-size:.72rem;letter-spacing:.15em;text-transform:uppercase;font-weight:800;cursor:pointer}
+.pill.active{background:var(--dark);color:#fff;border-color:var(--dark)}
+
+.trust{display:flex;justify-content:center;gap:2rem;flex-wrap:wrap;padding:1rem 4%;background:#fff;border-top:1px solid var(--border);border-bottom:1px solid var(--border);font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);font-weight:800}
+
+.section{padding:1.4rem 4% 3rem;max-width:1400px;margin:auto}
+.products-top{display:flex;justify-content:space-between;align-items:center;margin:0 0 1.2rem;border-bottom:1px solid var(--border);padding-bottom:1rem;color:var(--muted);letter-spacing:.14em;text-transform:uppercase;font-size:.72rem;font-weight:800}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:1.2rem}
+.card{background:#fff;border:1px solid var(--border);border-radius:22px;overflow:hidden;box-shadow:var(--shadow);transition:.25s;position:relative}
+.card:hover{transform:translateY(-5px)}
+.img-wrap{height:280px;background:#eee;position:relative;overflow:hidden}
+.img-wrap img{width:100%;height:100%;object-fit:cover;display:block;transition:.4s}
+.card:hover img{transform:scale(1.05)}
+.badge-row{position:absolute;top:12px;left:12px;display:flex;gap:.35rem;z-index:2;flex-wrap:wrap}
+.badge{background:var(--dark);color:#fff;padding:.35rem .65rem;border-radius:999px;font-size:.56rem;letter-spacing:.12em;text-transform:uppercase;font-weight:900}
+.badge.gold{background:var(--gold);color:var(--dark)}
+.badge.sold{background:var(--danger)}
+.badge.low{background:var(--orange)}
+.info{padding:1rem}
+.cat{font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);font-weight:900;margin-bottom:.35rem}
+.name{font-size:1.05rem;font-weight:900;margin-bottom:.25rem}
+.desc{font-size:.8rem;color:var(--muted);line-height:1.45;margin-bottom:.75rem;min-height:34px}
+.meta{display:grid;gap:.35rem;font-size:.76rem;margin-bottom:.85rem}
+.meta span{color:var(--muted)}
+.stock{display:inline-flex;align-items:center;gap:.35rem;font-weight:900;color:var(--ok)}
+.stock.sold{color:var(--danger)}
+.stock.low{color:var(--orange)}
+.dot{width:8px;height:8px;border-radius:50%;background:currentColor;display:inline-block}
+.footer{display:flex;align-items:center;justify-content:space-between;gap:.6rem}
+.price{font-weight:900;font-size:1.05rem}
+.add,.ask{border:0;border-radius:999px;background:var(--dark);color:#fff;cursor:pointer;padding:.65rem .9rem;font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;font-weight:900;text-decoration:none;white-space:nowrap}
+.ask{background:#25d366}
+.load-wrap{text-align:center;margin-top:2rem}
+.load-more{border:1px solid var(--dark);background:transparent;color:var(--dark);padding:.9rem 2rem;border-radius:999px;cursor:pointer;text-transform:uppercase;letter-spacing:.16em;font-weight:900;font-size:.72rem}
+
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.35);opacity:0;pointer-events:none;transition:.25s;z-index:90}
+.overlay.open{opacity:1;pointer-events:auto}
+.cart-panel{position:fixed;top:0;right:-430px;width:min(400px,100%);height:100vh;background:#fff;z-index:100;box-shadow:-20px 0 45px rgba(0,0,0,.16);transition:.35s;display:flex;flex-direction:column}
+.cart-panel.open{right:0}
+.cart-head{display:flex;justify-content:space-between;align-items:center;padding:1.4rem;border-bottom:1px solid var(--border)}
+.cart-head h3{font-family:"Cormorant Garamond",serif;font-size:1.7rem}
+.close{border:0;background:#f3eee6;width:38px;height:38px;border-radius:50%;cursor:pointer;font-size:1.2rem}
+.cart-items{flex:1;overflow:auto;padding:1rem 1.4rem}
+.cart-item{display:grid;grid-template-columns:70px 1fr;gap:1rem;padding:1rem 0;border-bottom:1px solid var(--border)}
+.cart-item img{width:70px;height:86px;object-fit:cover;border-radius:14px;background:#eee}
+.cart-item h4{font-size:1rem;margin-bottom:.25rem}
+.qty{display:flex;align-items:center;gap:.5rem;margin-top:.7rem;flex-wrap:wrap}
+.qty button{width:28px;height:28px;border-radius:50%;border:1px solid var(--border);background:#fff;cursor:pointer}
+.remove{color:var(--danger);border:0!important;background:transparent!important;cursor:pointer;width:auto!important;font-weight:800}
+.cart-bottom{padding:1.4rem;border-top:1px solid var(--border)}
+.subtotal{display:flex;justify-content:space-between;margin-bottom:1rem;font-weight:900;font-size:1.1rem}
+.whatsapp{display:block;text-align:center;background:#25d366;color:#fff;text-decoration:none;padding:1rem;border-radius:999px;font-weight:900;letter-spacing:.12em;text-transform:uppercase;font-size:.75rem}
+.float-wa{position:fixed;right:18px;bottom:18px;width:56px;height:56px;border-radius:50%;background:#25d366;color:white;display:flex;align-items:center;justify-content:center;text-decoration:none;font-size:1.6rem;z-index:75;box-shadow:0 12px 28px rgba(37,211,102,.35)}
+.site-footer{background:var(--dark);color:#ddd;text-align:center;padding:2.5rem 4%;margin-top:2rem}
+.site-footer h3{font-family:"Cormorant Garamond",serif;color:#fff;font-size:2rem;margin-bottom:.4rem}
+.empty{text-align:center;color:var(--muted);padding:3rem 1rem;grid-column:1/-1}
+
+@media(max-width:850px){
+.topbar{grid-template-columns:auto auto;height:auto;padding:.8rem 1rem;gap:.8rem}
+.search-wrap{grid-column:1/-1;order:3}
+.chat-btn{display:none}
+.hero-market{grid-template-columns:1fr;padding:1rem}
+.side-cats{display:none}
+.quick-tiles{grid-template-columns:repeat(2,1fr)}
+.promo{min-height:210px;padding:1.4rem}
+.grid{grid-template-columns:repeat(2,1fr);gap:.9rem}
+.img-wrap{height:230px}
+.info{padding:.85rem}
+.name{font-size:.95rem}
+.desc{display:none}
+.meta{font-size:.68rem}
+.footer{align-items:flex-start;flex-direction:column}
+.add,.ask{width:100%;text-align:center}
+}
+@media(max-width:420px){.grid{grid-template-columns:1fr}.img-wrap{height:330px}.quick-tiles{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header class="topbar">
+<a href="#" class="logo">B.I.G <span>Boutique</span></a>
+<div class="search-wrap">
+<select id="searchCategory"><option value="all">All</option><option value="clothes">Clothes</option><option value="sneakers">Sneakers</option><option value="bags">Bags</option><option value="accessories">Accessories</option></select>
+<input id="searchInput" type="search" placeholder="Search products, colors, sizes..." />
+<button id="searchBtn">Search</button>
+</div>
+<div class="actions">
+<a class="chat-btn" href="https://wa.me/233557254378?text=Hello%20B.I.G,%20I%20want%20to%20ask%20about%20available%20products." target="_blank">Chat</a>
+<button class="cart-btn" id="openCart">🛍️<span class="cart-count" id="cartCount">0</span></button>
+</div>
+</header>
+
+<section class="hero-market">
+<aside class="side-cats">
+<h3>All Categories</h3>
+<div class="cat-link" data-cat="clothes">Clothes <span>›</span></div>
+<div class="cat-link" data-cat="sneakers">Sneakers <span>›</span></div>
+<div class="cat-link" data-cat="bags">Bags <span>›</span></div>
+<div class="cat-link" data-cat="accessories">Accessories <span>›</span></div>
+<div class="cat-link" data-cat="available">Available Now <span>›</span></div>
+<div class="cat-link" data-cat="soldout">Sold Out <span>›</span></div>
+</aside>
+<div class="market-main">
+<div class="promo">
+<small>Fresh Stock Weekly</small>
+<h1>Shop What B.I.G Represents</h1>
+<p>Clothes, sneakers, bags and accessories shown immediately. Search, check availability, add to cart, and order through WhatsApp.</p>
+<a href="#products" class="cta">Start Shopping</a>
+</div>
+<div class="quick-tiles">
+<div class="tile" data-cat="clothes"><img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=800"><span>Clothes</span></div>
+<div class="tile" data-cat="sneakers"><img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=800"><span>Sneakers</span></div>
+<div class="tile" data-cat="bags"><img src="https://images.unsplash.com/photo-1590874103328-eac38a683ce7?w=800"><span>Bags</span></div>
+<div class="tile" data-cat="accessories"><img src="https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=800"><span>Accessories</span></div>
+</div>
+</div>
+</section>
+
+<div class="mini-strip">
+<button class="pill active" data-cat="all">All Products</button>
+<button class="pill" data-cat="available">Available</button>
+<button class="pill" data-cat="clothes">Clothes</button>
+<button class="pill" data-cat="sneakers">Sneakers</button>
+<button class="pill" data-cat="bags">Bags</button>
+<button class="pill" data-cat="accessories">Accessories</button>
+<button class="pill" data-cat="soldout">Sold Out</button>
+</div>
+
+<div class="trust"><span>WhatsApp Order</span><span>Stock Status</span><span>Size & Colors</span><span>Mobile First</span></div>
+
+<section class="section" id="products">
+<div class="products-top"><span id="heading">All Products</span><span id="count">Loading...</span></div>
+<div class="grid" id="productGrid"><p class="empty">Loading products...</p></div>
+<div class="load-wrap"><button class="load-more" id="loadMore">Load More</button></div>
+</section>
+
+<footer class="site-footer" id="about"><h3>B.I.G Boutique</h3><p id="contact">A simple marketplace-style fashion store. Search, add to cart, and order on WhatsApp.</p></footer>
+<div class="overlay" id="overlay"></div>
+<aside class="cart-panel" id="cartPanel"><div class="cart-head"><h3>Your Cart</h3><button class="close" id="closeCart">×</button></div><div class="cart-items" id="cartItems"></div><div class="cart-bottom"><div class="subtotal"><span>Total</span><strong id="cartTotal">GHC0</strong></div><a class="whatsapp" id="whatsappOrder" target="_blank" href="#">Order on WhatsApp</a></div></aside>
+<a class="float-wa" href="https://wa.me/233557254378?text=Hello%20B.I.G,%20I%20want%20to%20ask%20about%20your%20products." target="_blank">☘</a>
+
+<script>
+const WHATSAPP_NUMBER='233557254378';
+const API_URL='https://sheetdb.io/api/v1/jm2u53672y7vv';
+const SAMPLE_PRODUCTS=[
+{id:1,name:'Luxury Hoodie',cat:'clothes',price:150,image_url:'https://i.ibb.co/JwxFTLL3/shopping.webp',desc:'Premium oversized hoodie',badge:'New',stock:1,status:'available',colors:'White, Black, Blue',sizes:'M, L, XL'},
+{id:2,name:'Classic Street Sneakers',cat:'sneakers',price:320,image_url:'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=900',desc:'Clean everyday sneakers',badge:'Hot',stock:0,status:'soldout',colors:'White, Red',sizes:'40, 41, 42'},
+{id:3,name:'Mini Leather Bag',cat:'bags',price:210,image_url:'https://images.unsplash.com/photo-1590874103328-eac38a683ce7?w=900',desc:'Compact premium everyday bag',badge:'Fresh',stock:4,status:'available',colors:'Black, Brown',sizes:'One Size'},
+{id:4,name:'Gold Chain Set',cat:'accessories',price:90,image_url:'https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=900',desc:'Clean accessory for any fit',badge:'New',stock:2,status:'available',colors:'Gold',sizes:'One Size'}
+];
+let PRODUCTS=[],cart=[],activeCat='all',searchTerm='',visibleCount=8;
+const productGrid=document.getElementById('productGrid'),count=document.getElementById('count'),heading=document.getElementById('heading'),cartPanel=document.getElementById('cartPanel'),overlay=document.getElementById('overlay'),cartItems=document.getElementById('cartItems'),cartCount=document.getElementById('cartCount'),cartTotal=document.getElementById('cartTotal'),whatsappOrder=document.getElementById('whatsappOrder'),searchInput=document.getElementById('searchInput'),searchCategory=document.getElementById('searchCategory'),loadMore=document.getElementById('loadMore');
+function money(n){return 'GHC'+Number(n||0).toFixed(0)}
+function cleanStatus(p){const stock=Number(p.stock||0);const status=String(p.status||'').toLowerCase().trim();if(status==='soldout'||status==='sold out'||stock<=0)return'soldout';if(status==='ask')return'ask';return'available'}
+function stockLabel(p){const stock=Number(p.stock||0),status=cleanStatus(p);if(status==='soldout')return{text:'Sold Out',cls:'sold'};if(status==='ask')return{text:'Ask Availability',cls:'low'};if(stock<=2)return{text:`Only ${stock} left`,cls:'low'};return{text:'Available',cls:''}}
+async function loadProducts(){try{const res=await fetch(API_URL);const data=await res.json();PRODUCTS=data.map((item,index)=>({id:Number(item.id||index+1),name:item.name||item.title||'',cat:String(item.cat||item.category||'clothes').toLowerCase().trim(),price:Number(item.price||0),image_url:item.image_url||item.image||'',desc:item.desc||item.description||'',badge:item.badge||'',stock:Number(item.stock??1),status:item.status||'available',colors:item.colors||'',sizes:item.sizes||''})).filter(p=>p.name&&p.image_url);if(!PRODUCTS.length)PRODUCTS=SAMPLE_PRODUCTS}catch(e){PRODUCTS=SAMPLE_PRODUCTS}renderProducts()}
+function getFiltered(){return PRODUCTS.filter(p=>{const status=cleanStatus(p);const text=`${p.name} ${p.cat} ${p.desc} ${p.colors} ${p.sizes} ${p.badge}`.toLowerCase();const categoryMatch=activeCat==='all'||p.cat===activeCat||(activeCat==='available'&&status==='available')||(activeCat==='soldout'&&status==='soldout');const searchMatch=!searchTerm||text.includes(searchTerm.toLowerCase());return categoryMatch&&searchMatch})}
+function setCategory(cat){activeCat=cat;visibleCount=8;document.querySelectorAll('[data-cat]').forEach(b=>b.classList.remove('active'));document.querySelectorAll(`[data-cat="${cat}"]`).forEach(b=>b.classList.add('active'));renderProducts();document.getElementById('products').scrollIntoView({behavior:'smooth'})}
+function renderProducts(){const filtered=getFiltered(),shown=filtered.slice(0,visibleCount);heading.textContent=activeCat==='all'?'All Products':activeCat;count.textContent=`${filtered.length} result${filtered.length!==1?'s':''}`;loadMore.style.display=filtered.length>visibleCount?'inline-block':'none';if(!shown.length){productGrid.innerHTML='<p class="empty">No products found. Try another search or category.</p>';return}productGrid.innerHTML=shown.map(p=>{const status=cleanStatus(p),stock=Number(p.stock||0),label=stockLabel(p),canAdd=status==='available'&&stock>0,ask=`https://wa.me/${WHATSAPP_NUMBER}?text=Hello%20B.I.G,%20I%20want%20to%20ask%20about%20${encodeURIComponent(p.name)}.%20Available%20colors/sizes?`;return `<div class="card"><div class="img-wrap"><img src="${p.image_url}" alt="${p.name}"><div class="badge-row">${p.badge?`<span class="badge gold">${p.badge}</span>`:''}<span class="badge ${label.cls==='sold'?'sold':label.cls==='low'?'low':''}">${label.text}</span></div></div><div class="info"><div class="cat">${p.cat}</div><div class="name">${p.name}</div><div class="desc">${p.desc}</div><div class="meta">${p.colors?`<div><span>Colors:</span> ${p.colors}</div>`:''}${p.sizes?`<div><span>Sizes:</span> ${p.sizes}</div>`:''}<div class="stock ${label.cls}"><i class="dot"></i> ${label.text}</div></div><div class="footer"><div class="price">${money(p.price)}</div>${canAdd?`<button class="add" onclick="addToCart(${p.id})">Add</button>`:`<a class="ask" href="${ask}" target="_blank">Ask</a>`}</div></div></div>`}).join('')}
+function addToCart(id){const product=PRODUCTS.find(p=>p.id===id);if(!product)return;const stock=Number(product.stock||0),existing=cart.find(i=>i.id===id),current=existing?existing.qty:0;if(cleanStatus(product)!=='available'||stock<=0){alert('This product is not available. Please ask us on WhatsApp.');return}if(current>=stock){alert(`Only ${stock} available in stock.`);return}if(existing)existing.qty++;else cart.push({...product,qty:1});renderCart();openCart()}
+function changeQty(id,amount){const item=cart.find(i=>i.id===id);if(!item)return;const product=PRODUCTS.find(p=>p.id===id);const stock=Number(product?.stock||item.stock||0);if(amount>0&&item.qty>=stock){alert(`Only ${stock} available in stock.`);return}item.qty+=amount;if(item.qty<=0)cart=cart.filter(i=>i.id!==id);renderCart()}
+function removeItem(id){cart=cart.filter(i=>i.id!==id);renderCart()}
+function renderCart(){cartCount.textContent=cart.reduce((s,i)=>s+i.qty,0);const total=cart.reduce((s,i)=>s+i.price*i.qty,0);cartTotal.textContent=money(total);if(!cart.length){cartItems.innerHTML='<p class="empty">Your cart is empty.</p>';whatsappOrder.href=`https://wa.me/${WHATSAPP_NUMBER}?text=Hello%20B.I.G,%20I%20want%20to%20ask%20about%20your%20products.`;return}cartItems.innerHTML=cart.map(i=>`<div class="cart-item"><img src="${i.image_url}" alt="${i.name}"><div><h4>${i.name}</h4><p>${money(i.price)} each</p><small>${i.colors?'Colors: '+i.colors:''} ${i.sizes?' | Sizes: '+i.sizes:''}</small><div class="qty"><button onclick="changeQty(${i.id},-1)">−</button><span>${i.qty}</span><button onclick="changeQty(${i.id},1)">+</button><button class="remove" onclick="removeItem(${i.id})">Remove</button></div></div></div>`).join('');const lines=cart.map(i=>`• ${i.name} x${i.qty} - ${money(i.price*i.qty)}${i.colors?' | Colors: '+i.colors:''}${i.sizes?' | Sizes: '+i.sizes:''}`).join('%0A');const message=`Hello B.I.G, I would like to place this order:%0A%0A${lines}%0A%0ATotal: ${money(total)}%0A%0APlease confirm available color, size, and delivery.`;whatsappOrder.href=`https://wa.me/${WHATSAPP_NUMBER}?text=${message}`}
+function openCart(){cartPanel.classList.add('open');overlay.classList.add('open')}
+function closeCart(){cartPanel.classList.remove('open');overlay.classList.remove('open')}
+document.getElementById('openCart').addEventListener('click',openCart);document.getElementById('closeCart').addEventListener('click',closeCart);overlay.addEventListener('click',closeCart);
+document.querySelectorAll('[data-cat]').forEach(btn=>btn.addEventListener('click',()=>setCategory(btn.dataset.cat)));
+searchInput.addEventListener('input',e=>{searchTerm=e.target.value.trim();activeCat=searchCategory.value;visibleCount=8;renderProducts()});
+searchCategory.addEventListener('change',()=>{activeCat=searchCategory.value;visibleCount=8;renderProducts()});
+document.getElementById('searchBtn').addEventListener('click',()=>{searchTerm=searchInput.value.trim();activeCat=searchCategory.value;renderProducts();document.getElementById('products').scrollIntoView({behavior:'smooth'})});
+loadMore.addEventListener('click',()=>{visibleCount+=8;renderProducts()});
+loadProducts();renderCart();
+</script>
+</body>
+</html>

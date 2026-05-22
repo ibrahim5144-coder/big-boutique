@@ -282,15 +282,19 @@ ${cleanStatus(p)==='soldout'
 <div class="footer">
 <div class="price">${money(p.price)}</div>
 
-<button
-class="add"
-onclick="addToCart(${p.id})"
+
 ${cleanStatus(p)==='soldout'
-?'disabled'
-:''}
->
+? `<a class="add ask"
+href="https://wa.me/${WHATSAPP_NUMBER}?text=Hello%20B.I.G,%20is%20this%20product%20available:%20${encodeURIComponent(p.name)}"
+target="_blank">
+ASK
+</a>`
+: `<button
+class="add"
+onclick="addToCart(${p.id})">
 ADD
 </button>
+}
 </div>
 </div>
 </div>

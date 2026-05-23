@@ -181,7 +181,7 @@
     <div class="success-icon">✓</div>
     <h2>Order Received Successfully</h2>
     <p id="successText">Your order has been saved.</p>
-    <button class="btn btn-green" id="whatsappBtn">Notify Seller on WhatsApp</button>
+    <button class="btn btn-green" id="whatsappBtn">Order Now</button>
     <button class="btn2" onclick="closeSuccess()">Close</button>
   </div>
 </div>
@@ -379,9 +379,8 @@ Sent from BUYBIG.`;
     ["customerName","customerPhone","customerLocation","customerNote"].forEach(id=>document.getElementById(id).value="");
     closeOrder();
 
-    if (whatsappLink) {
-  window.open(whatsappLink, "_blank");
-  openSuccess("Order saved ✅ WhatsApp is opening now so you can chat directly with the seller.", whatsappLink);
+  if (whatsappLink) {
+  openSuccess("Order saved ✅ Tap the green WhatsApp button to chat directly with the seller.", whatsappLink);
 } else {
   openSuccess("Order saved ✅ But this product has no seller WhatsApp saved. Please contact BUYBIG support.", "");
 }

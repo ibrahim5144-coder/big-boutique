@@ -1,362 +1,390 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>BUYBIG</title>
-  <style>
-    *{box-sizing:border-box}
-    html{scroll-behavior:smooth}
-    body{margin:0;font-family:Arial,sans-serif;background:#f3f6fb;color:#0f172a}
-    button,input,textarea{font-family:inherit}
-    header{background:#0f172a;color:white;padding:14px 6%;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:50}
-    .brand{display:flex;align-items:center;gap:12px;font-weight:900;font-size:24px}
-    .mark{width:42px;height:42px;border-radius:15px;background:linear-gradient(135deg,#22c55e,#3b82f6,#a855f7);display:grid;place-items:center}
-    nav{display:flex;gap:9px}
-    nav button,.mobile-nav button{border:0;border-radius:999px;padding:11px 17px;font-weight:900;cursor:pointer}
-    .section{padding:55px 6%}
-    .hidden{display:none!important}
-    .hero{padding:70px 6%;display:grid;grid-template-columns:1.15fr .85fr;gap:26px}
-    .hero-box{background:radial-gradient(circle at top right,#2563eb,#111827 40%,#020617);color:white;border-radius:36px;padding:44px}
-    .hero h1{font-size:58px;line-height:1.02;margin:18px 0}
-    .hero p{color:#e5e7eb}
-    .tag{display:inline-block;background:#dcfce7;color:#166534;padding:9px 14px;border-radius:999px;font-weight:900;font-size:13px}
-    .btn{background:#0f172a;color:white;border:0;padding:13px 18px;border-radius:18px;cursor:pointer;font-weight:900}
-    .btn-light{background:white;color:#0f172a}
-    .btn-green{background:#16a34a;color:white}
-    .btn2{background:#e5e7eb;color:#111827;border:0;padding:12px 16px;border-radius:18px;cursor:pointer;font-weight:900}
-    .card{background:white;border-radius:28px;padding:24px;box-shadow:0 18px 45px rgba(15,23,42,.07);margin-bottom:16px}
-    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px}
-    .dash{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
-    .product{overflow:hidden;padding:0}
-    .product img{width:100%;height:220px;object-fit:cover;background:#e5e7eb}
-    .product-body{padding:18px}
-    .price{font-size:24px;font-weight:900}
-    .badge{display:inline-block;background:#eef2ff;color:#3730a3;padding:7px 10px;border-radius:999px;font-size:12px;font-weight:900}
-    input,textarea{width:100%;padding:15px;margin:8px 0;border:1px solid #d1d5db;border-radius:18px;font-size:15px}
-    .notice{background:#ecfeff;border:1px solid #a5f3fc;color:#155e75;padding:14px;border-radius:18px;margin:12px 0;font-weight:700}
-    .alert-card{background:#f0fdf4;border:1px solid #bbf7d0;color:#14532d;padding:16px;border-radius:20px;margin-bottom:14px}
-    .modal{position:fixed;inset:0;background:rgba(2,6,23,.75);display:grid;place-items:center;z-index:100;padding:18px}
-    .modal-box{background:white;border-radius:28px;padding:24px;max-width:540px;width:100%;box-shadow:0 30px 100px rgba(0,0,0,.35)}
-    .success-icon{width:64px;height:64px;border-radius:22px;background:#dcfce7;color:#16a34a;display:grid;place-items:center;font-size:34px;margin-bottom:12px}
-    footer{padding:38px 6%;background:#0f172a;color:white}
-    .mobile-nav{display:none;position:fixed;bottom:14px;left:14px;right:14px;background:#0f172a;border-radius:28px;padding:10px;z-index:70}
-    .mobile-nav button{flex:1;background:transparent;color:white}
-    @media(max-width:900px){
-      header nav{display:none}.mobile-nav{display:flex}
-      .hero,.grid,.dash{grid-template-columns:1fr}
-      .hero{padding:35px 4%}.hero h1{font-size:42px}.section{padding:38px 4%}
-      footer{padding-bottom:90px}
-    }
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>BUYBIG</title>
+
+<style>
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:Arial,sans-serif;background:#f3f6fb;color:#0f172a}
+button,input,textarea{font-family:inherit}
+header{background:#0f172a;color:white;padding:14px 6%;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:50}
+.brand{display:flex;align-items:center;gap:12px;font-weight:900;font-size:24px}
+.mark{width:42px;height:42px;border-radius:15px;background:linear-gradient(135deg,#22c55e,#3b82f6,#a855f7);display:grid;place-items:center}
+nav{display:flex;gap:9px}
+nav button,.mobile-nav button{border:0;border-radius:999px;padding:11px 17px;font-weight:900;cursor:pointer}
+.section{padding:55px 6%}
+.hidden{display:none!important}
+.hero{padding:70px 6%;display:grid;grid-template-columns:1.15fr .85fr;gap:26px}
+.hero-box{background:radial-gradient(circle at top right,#2563eb,#111827 40%,#020617);color:white;border-radius:36px;padding:44px}
+.hero h1{font-size:58px;line-height:1.02;margin:18px 0}
+.hero p{color:#e5e7eb}
+.tag{display:inline-block;background:#dcfce7;color:#166534;padding:9px 14px;border-radius:999px;font-weight:900;font-size:13px}
+.btn{background:#0f172a;color:white;border:0;padding:13px 18px;border-radius:18px;cursor:pointer;font-weight:900}
+.btn-light{background:white;color:#0f172a}
+.btn-green{background:#16a34a;color:white}
+.btn2{background:#e5e7eb;color:#111827;border:0;padding:12px 16px;border-radius:18px;cursor:pointer;font-weight:900}
+.card{background:white;border-radius:28px;padding:24px;box-shadow:0 18px 45px rgba(15,23,42,.07);margin-bottom:16px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px}
+.dash{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px}
+.product{overflow:hidden;padding:0}
+.product img{width:100%;height:220px;object-fit:cover;background:#e5e7eb}
+.product-body{padding:18px}
+.price{font-size:24px;font-weight:900}
+.badge{display:inline-block;background:#eef2ff;color:#3730a3;padding:7px 10px;border-radius:999px;font-size:12px;font-weight:900}
+input,textarea{width:100%;padding:15px;margin:8px 0;border:1px solid #d1d5db;border-radius:18px;font-size:15px}
+.notice{background:#ecfeff;border:1px solid #a5f3fc;color:#155e75;padding:14px;border-radius:18px;margin:12px 0;font-weight:700}
+.alert-card{background:#f0fdf4;border:1px solid #bbf7d0;color:#14532d;padding:16px;border-radius:20px;margin-bottom:14px}
+.modal{position:fixed;inset:0;background:rgba(2,6,23,.75);display:grid;place-items:center;z-index:100;padding:18px}
+.modal-box{background:white;border-radius:28px;padding:24px;max-width:540px;width:100%;box-shadow:0 30px 100px rgba(0,0,0,.35)}
+.success-icon{width:64px;height:64px;border-radius:22px;background:#dcfce7;color:#16a34a;display:grid;place-items:center;font-size:34px;margin-bottom:12px}
+footer{padding:38px 6%;background:#0f172a;color:white}
+.footer-admin{opacity:.25;font-size:12px;cursor:pointer;margin-top:20px}
+.mobile-nav{display:none;position:fixed;bottom:14px;left:14px;right:14px;background:#0f172a;border-radius:28px;padding:10px;z-index:70}
+.mobile-nav button{flex:1;background:transparent;color:white}
+@media(max-width:900px){
+header nav{display:none}.mobile-nav{display:flex}
+.hero,.grid,.dash{grid-template-columns:1fr}
+.hero{padding:35px 4%}.hero h1{font-size:42px}.section{padding:38px 4%}
+footer{padding-bottom:90px}
+}
+</style>
 </head>
+
 <body>
 
 <header>
-  <div class="brand"><div class="mark">🛍️</div> BUYBIG</div>
-  <nav>
-    <button onclick="show('shop')">Shop</button>
-    <button onclick="show('seller')">Seller</button>
-    <button onclick="show('admin')">Admin</button>
-    <button onclick="show('trust')">Trust</button>
-  </nav>
+<div class="brand"><div class="mark">🛍️</div> BUYBIG</div>
+<nav>
+<button onclick="show('shop')">Shop</button>
+<button onclick="show('seller')">Seller</button>
+<button onclick="show('trust')">Trust</button>
+</nav>
 </header>
 
 <div class="mobile-nav">
-  <button onclick="show('shop')">Shop</button>
-  <button onclick="show('seller')">Sell</button>
-  <button onclick="show('admin')">Admin</button>
-  <button onclick="show('trust')">Trust</button>
+<button onclick="show('shop')">Shop</button>
+<button onclick="show('seller')">Sell</button>
+<button onclick="show('trust')">Trust</button>
 </div>
 
 <section id="shop">
-  <div class="hero">
-    <div class="hero-box">
-      <span class="tag">✅ Verified Ghana Stores</span>
-      <h1>Buy smarter. Grow bigger.</h1>
-      <p>BUYBIG is a modern marketplace for trusted stores, secure selling, and simple shopping across Ghana.</p>
-      <button class="btn btn-light" onclick="document.getElementById('productsArea').scrollIntoView()">Explore Products</button>
-      <button class="btn" onclick="show('seller')">Start Selling</button>
-    </div>
+<div class="hero">
+<div class="hero-box">
+<span class="tag">✅ Verified Ghana Stores</span>
+<h1>Buy smarter. Grow bigger.</h1>
+<p>BUYBIG is a modern marketplace for trusted stores, secure selling, and simple shopping across Ghana.</p>
+<button class="btn btn-light" onclick="document.getElementById('productsArea').scrollIntoView()">Explore Products</button>
+<button class="btn" onclick="show('seller')">Start Selling</button>
+</div>
 
-    <div class="card">
-      <h2>Secure Order Flow</h2>
-      <p>✅ Customer places order</p>
-      <p>✅ Order saves to dashboard</p>
-      <p>✅ Seller receives WhatsApp message</p>
-      <p>✅ 10% commission calculated</p>
-      <p>✅ Admin controls payout</p>
-    </div>
-  </div>
+<div class="card">
+<h2>Fast Local Shopping</h2>
+<p>✅ Find trusted sellers</p>
+<p>✅ Place your order quickly</p>
+<p>✅ Continue on WhatsApp</p>
+<p>✅ Confirm delivery and payment</p>
+</div>
+</div>
 
-  <div class="section" id="productsArea">
-    <h2>Live Products</h2>
-    <p id="productStatus">Loading products...</p>
-    <div class="grid" id="products"></div>
-  </div>
+<div class="section" id="productsArea">
+<h2>Live Products</h2>
+<p id="productStatus">Loading products...</p>
+<div class="grid" id="products"></div>
+</div>
 </section>
 
 <section id="seller" class="hidden section">
-  <span class="tag">Seller Portal</span>
-  <h1>Sell on BUYBIG</h1>
+<span class="tag">Seller Portal</span>
+<h1>Sell on BUYBIG</h1>
 
-  <div id="authBox" class="card">
-    <h2>Create Seller Account</h2>
-    <input id="sellerName" placeholder="Store name" />
-    <input id="sellerWhatsapp" placeholder="Seller WhatsApp number e.g. 233557254378" />
-    <input id="email" type="email" placeholder="Email address" />
-    <input id="password" type="password" placeholder="Password" />
-    <button class="btn" onclick="signupSeller()">Create Account</button>
-    <button class="btn2" onclick="loginSeller()">Login</button>
-    <p class="notice">Use Ghana format for WhatsApp: 233XXXXXXXXX. Do not start with 0.</p>
-  </div>
+<div id="authBox" class="card">
+<h2>Create Seller Account</h2>
+<input id="sellerName" placeholder="Store name" />
+<input id="sellerWhatsapp" placeholder="Seller WhatsApp number e.g. 233557254378" />
+<input id="email" type="email" placeholder="Email address" />
+<input id="password" type="password" placeholder="Password" />
+<button class="btn" onclick="signupSeller()">Create Account</button>
+<button class="btn2" onclick="loginSeller()">Login</button>
+<p class="notice">Use Ghana format for WhatsApp: 233XXXXXXXXX. Do not start with 0.</p>
+</div>
 
-  <div id="sellerDashboard" class="hidden">
-    <div class="card">
-      <h2>Welcome, <span id="currentSeller">Seller</span></h2>
-      <p><b>WhatsApp:</b> <span id="currentWhatsapp">Not set</span></p>
-      <button class="btn2" onclick="logoutSeller()">Logout</button>
-    </div>
+<div id="sellerDashboard" class="hidden">
+<div class="card">
+<h2>Welcome, <span id="currentSeller">Seller</span></h2>
+<p><b>WhatsApp:</b> <span id="currentWhatsapp">Not set</span></p>
+<button class="btn2" onclick="logoutSeller()">Logout</button>
+</div>
 
-    <div class="card">
-      <h2>Upload Product</h2>
-      <input id="pName" placeholder="Product name" />
-      <input id="pPrice" type="number" placeholder="Price in Ghana cedis" />
-      <input id="pCategory" placeholder="Category" />
-      <input id="pImage" placeholder="Image URL" />
-      <textarea id="pDesc" placeholder="Short product description"></textarea>
-      <button class="btn" onclick="uploadProduct()">Save Product</button>
-    </div>
+<div class="card">
+<h2>Upload Product</h2>
+<input id="pName" placeholder="Product name" />
+<input id="pPrice" type="number" placeholder="Price in Ghana cedis" />
+<input id="pCategory" placeholder="Category" />
+<input id="pImage" placeholder="Image URL" />
+<textarea id="pDesc" placeholder="Short product description"></textarea>
+<button class="btn" onclick="uploadProduct()">Save Product</button>
+</div>
 
-    <div class="card">
-      <h2>🔔 Seller Orders</h2>
-      <div id="sellerOrders">No orders loaded yet.</div>
-    </div>
-  </div>
+<div class="card">
+<h2>🔔 Seller Orders</h2>
+<div id="sellerOrders">No orders loaded yet.</div>
+</div>
+</div>
 </section>
 
 <section id="admin" class="hidden section">
-  <span class="tag">Owner Control Center</span>
-  <h1>BUYBIG Admin Dashboard</h1>
+<span class="tag">Private Owner Control</span>
+<h1>BUYBIG Admin Dashboard</h1>
 
-  <div class="dash">
-    <div class="card"><h3>Products</h3><h2 id="adminProductCount">0</h2></div>
-    <div class="card"><h3>Stores</h3><h2 id="storeCount">0</h2></div>
-    <div class="card"><h3>Orders</h3><h2 id="orderCount">0</h2></div>
-    <div class="card"><h3>Commission</h3><h2>10%</h2></div>
-  </div>
+<div class="dash">
+<div class="card"><h3>Products</h3><h2 id="adminProductCount">0</h2></div>
+<div class="card"><h3>Stores</h3><h2 id="storeCount">0</h2></div>
+<div class="card"><h3>Orders</h3><h2 id="orderCount">0</h2></div>
+<div class="card"><h3>Commission</h3><h2>10%</h2></div>
+</div>
 
-  <div class="card">
-    <h2>All Orders</h2>
-    <div id="adminOrders">No orders yet.</div>
-  </div>
+<div class="card">
+<h2>All Orders</h2>
+<div id="adminOrders">No orders yet.</div>
+</div>
 </section>
 
 <section id="trust" class="hidden section">
-  <span class="tag">Trust System</span>
-  <h1>Security is part of BUYBIG.</h1>
-  <div class="grid">
-    <div class="card"><h3>🔐 Login Protection</h3><p>Sellers must create account before uploading.</p></div>
-    <div class="card"><h3>💬 WhatsApp Orders</h3><p>Seller can receive customer order details through WhatsApp.</p></div>
-    <div class="card"><h3>💰 Commission</h3><p>Every order calculates platform share and seller balance.</p></div>
-    <div class="card"><h3>✅ Seller Verification</h3><p>Admin approval comes next.</p></div>
-  </div>
+<span class="tag">Trust System</span>
+<h1>Security is part of BUYBIG.</h1>
+<div class="grid">
+<div class="card"><h3>🔐 Login Protection</h3><p>Sellers must create account before uploading.</p></div>
+<div class="card"><h3>💬 WhatsApp Orders</h3><p>Buyers can continue directly to the seller on WhatsApp.</p></div>
+<div class="card"><h3>✅ Seller Verification</h3><p>Admin approval comes next.</p></div>
+<div class="card"><h3>🚚 Local Delivery</h3><p>Seller and buyer confirm delivery details.</p></div>
+</div>
 </section>
 
 <div id="orderModal" class="modal hidden">
-  <div class="modal-box">
-    <h2>Complete Order</h2>
-    <p id="selectedProductText"></p>
-    <input id="customerName" placeholder="Your full name" />
-    <input id="customerPhone" placeholder="Phone / WhatsApp number" />
-    <input id="customerLocation" placeholder="Delivery location" />
-    <textarea id="customerNote" placeholder="Extra note e.g. size, color"></textarea>
-    <button class="btn" onclick="submitOrder()">Submit Order</button>
-    <button class="btn2" onclick="closeOrder()">Cancel</button>
-  </div>
+<div class="modal-box">
+<h2>Complete Order</h2>
+<p id="selectedProductText"></p>
+<input id="customerName" placeholder="Your full name" />
+<input id="customerPhone" placeholder="Phone / WhatsApp number" />
+<input id="customerLocation" placeholder="Delivery location" />
+<textarea id="customerNote" placeholder="Extra note e.g. size, color"></textarea>
+<button class="btn" onclick="submitOrder()">Submit Order</button>
+<button class="btn2" onclick="closeOrder()">Cancel</button>
+</div>
 </div>
 
 <div id="successModal" class="modal hidden">
-  <div class="modal-box">
-    <div class="success-icon">✓</div>
-    <h2>Order Received Successfully</h2>
-    <p id="successText">Your order has been saved.</p>
-    <button class="btn btn-green" id="whatsappBtn">Order Now</button>
-    <button class="btn2" onclick="closeSuccess()">Close</button>
-  </div>
+<div class="modal-box">
+<div class="success-icon">✓</div>
+<h2>Order Ready</h2>
+<p id="successText">Your order has been saved.</p>
+<button class="btn btn-green" id="whatsappBtn">Order Now</button>
+<button class="btn2" onclick="closeSuccess()">Close</button>
+</div>
+</div>
+
+<div id="adminLoginModal" class="modal hidden">
+<div class="modal-box">
+<h2>Admin Access</h2>
+<input id="adminCode" type="password" placeholder="Enter admin code" />
+<button class="btn" onclick="unlockAdmin()">Enter Admin</button>
+<button class="btn2" onclick="closeAdminLogin()">Cancel</button>
+</div>
 </div>
 
 <footer>
-  <h2>BUYBIG</h2>
-  <p>BUYBIG connects trusted Ghanaian stores with everyday buyers.</p>
+<h2>BUYBIG</h2>
+<p>BUYBIG connects trusted Ghanaian stores with everyday buyers.</p>
+<p class="footer-admin" onclick="openAdminLogin()">Owner access</p>
 </footer>
 
 <script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.13.0/firebase-app.js";
-  import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.13.0/firebase-auth.js";
-  import { getDatabase, ref, push, set, onValue } from "https://www.gstatic.com/firebasejs/12.13.0/firebase-database.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.13.0/firebase-app.js";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.13.0/firebase-auth.js";
+import { getDatabase, ref, push, set, onValue } from "https://www.gstatic.com/firebasejs/12.13.0/firebase-database.js";
 
-  const firebaseConfig = {
-    apiKey: "AIzaSyAu7ybOy2_dgaJLYIaPOlDUfumGBgdMvgI",
-    authDomain: "big-marketplace-1284e.firebaseapp.com",
-    projectId: "big-marketplace-1284e",
-    storageBucket: "big-marketplace-1284e.firebasestorage.app",
-    messagingSenderId: "625405992028",
-    appId: "1:625405992028:web:9921221439e5b266f45a99",
-    measurementId: "G-15NL0RFWWB",
-    databaseURL: "https://big-marketplace-1284e-default-rtdb.europe-west1.firebasedatabase.app"
-  };
+const firebaseConfig = {
+apiKey: "AIzaSyAu7ybOy2_dgaJLYIaPOlDUfumGBgdMvgI",
+authDomain: "big-marketplace-1284e.firebaseapp.com",
+projectId: "big-marketplace-1284e",
+storageBucket: "big-marketplace-1284e.firebasestorage.app",
+messagingSenderId: "625405992028",
+appId: "1:625405992028:web:9921221439e5b266f45a99",
+measurementId: "G-15NL0RFWWB",
+databaseURL: "https://big-marketplace-1284e-default-rtdb.europe-west1.firebasedatabase.app"
+};
 
-  const app = initializeApp(firebaseConfig);
-  const auth = getAuth(app);
-  const db = getDatabase(app);
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getDatabase(app);
 
-  let currentUser = null;
-  let currentStoreName = "";
-  let currentSellerWhatsapp = "";
-  let selectedProduct = null;
-  let lastWhatsappLink = "";
+let currentUser = null;
+let currentStoreName = "";
+let currentSellerWhatsapp = "";
+let selectedProduct = null;
+let lastWhatsappLink = "";
 
-  window.show = function(page){
-    ["shop","seller","admin","trust"].forEach(id=>document.getElementById(id).classList.add("hidden"));
-    document.getElementById(page).classList.remove("hidden");
-    window.scrollTo({top:0,behavior:"smooth"});
-  };
+window.show = function(page){
+["shop","seller","admin","trust"].forEach(id=>document.getElementById(id).classList.add("hidden"));
+document.getElementById(page).classList.remove("hidden");
+window.scrollTo({top:0,behavior:"smooth"});
+};
 
-  function cleanPhone(phone){
-    return String(phone || "").replace(/[^0-9]/g,"");
-  }
+function cleanPhone(phone){
+return String(phone || "").replace(/[^0-9]/g,"");
+}
 
-  window.signupSeller = async function(){
-    const storeName=document.getElementById("sellerName").value.trim();
-    const sellerWhatsapp=cleanPhone(document.getElementById("sellerWhatsapp").value.trim());
-    const email=document.getElementById("email").value.trim();
-    const password=document.getElementById("password").value.trim();
+window.openAdminLogin = function(){
+document.getElementById("adminLoginModal").classList.remove("hidden");
+};
 
-    if(!storeName||!sellerWhatsapp||!email||!password){
-      alert("Fill store name, WhatsApp, email and password.");
-      return;
-    }
+window.closeAdminLogin = function(){
+document.getElementById("adminLoginModal").classList.add("hidden");
+};
 
-    if(!sellerWhatsapp.startsWith("233")){
-      alert("Use Ghana WhatsApp format like 233557254378. Do not start with 0.");
-      return;
-    }
+window.unlockAdmin = function(){
+const code = document.getElementById("adminCode").value.trim();
+if(code === "BUYBIG2026"){
+document.getElementById("adminLoginModal").classList.add("hidden");
+show("admin");
+}else{
+alert("Wrong admin code.");
+}
+};
 
-    try{
-      const userCredential=await createUserWithEmailAndPassword(auth,email,password);
-      const uid=userCredential.user.uid;
-      await set(ref(db,"users/"+uid),{
-        uid,storeName,sellerWhatsapp,email,role:"seller",approved:false,createdAt:new Date().toISOString()
-      });
-      alert("Seller account created.");
-    }catch(error){alert(error.message);}
-  };
+window.signupSeller = async function(){
+const storeName=document.getElementById("sellerName").value.trim();
+const sellerWhatsapp=cleanPhone(document.getElementById("sellerWhatsapp").value.trim());
+const email=document.getElementById("email").value.trim();
+const password=document.getElementById("password").value.trim();
 
-  window.loginSeller = async function(){
-    const email=document.getElementById("email").value.trim();
-    const password=document.getElementById("password").value.trim();
-    if(!email||!password){alert("Enter email and password.");return;}
-    try{await signInWithEmailAndPassword(auth,email,password);alert("Logged in.");}
-    catch(error){alert(error.message);}
-  };
+if(!storeName||!sellerWhatsapp||!email||!password){
+alert("Fill store name, WhatsApp, email and password.");
+return;
+}
 
-  window.logoutSeller = async function(){await signOut(auth);alert("Logged out.");};
+if(!sellerWhatsapp.startsWith("233")){
+alert("Use Ghana WhatsApp format like 233557254378. Do not start with 0.");
+return;
+}
 
-  window.uploadProduct = async function(){
-    if(!currentUser){alert("Login first.");return;}
-    const name=document.getElementById("pName").value.trim();
-    const price=Number(document.getElementById("pPrice").value);
-    const category=document.getElementById("pCategory").value.trim();
-    const image=document.getElementById("pImage").value.trim();
-    const desc=document.getElementById("pDesc").value.trim();
+try{
+const userCredential=await createUserWithEmailAndPassword(auth,email,password);
+const uid=userCredential.user.uid;
+await set(ref(db,"users/"+uid),{
+uid,storeName,sellerWhatsapp,email,role:"seller",approved:false,createdAt:new Date().toISOString()
+});
+alert("Seller account created.");
+}catch(error){alert(error.message);}
+};
 
-    if(!name||!price||!category||!image){alert("Fill product details.");return;}
-    if(!currentSellerWhatsapp){alert("Your seller WhatsApp is missing. Create a new seller account with WhatsApp number.");return;}
+window.loginSeller = async function(){
+const email=document.getElementById("email").value.trim();
+const password=document.getElementById("password").value.trim();
+if(!email||!password){alert("Enter email and password.");return;}
+try{await signInWithEmailAndPassword(auth,email,password);alert("Logged in.");}
+catch(error){alert(error.message);}
+};
 
-    const productRef=push(ref(db,"products"));
-    await set(productRef,{
-      id:productRef.key,name,price,category,image,desc,
-      sellerId:currentUser.uid,
-      sellerEmail:currentUser.email,
-      sellerWhatsapp:currentSellerWhatsapp,
-      storeName:currentStoreName||"New Seller Store",
-      approved:true,
-      createdAt:new Date().toISOString()
-    });
+window.logoutSeller = async function(){await signOut(auth);alert("Logged out.");};
 
-    ["pName","pPrice","pCategory","pImage","pDesc"].forEach(id=>document.getElementById(id).value="");
-    alert("Product uploaded.");
-    show("shop");
-  };
+window.uploadProduct = async function(){
+if(!currentUser){alert("Login first.");return;}
+const name=document.getElementById("pName").value.trim();
+const price=Number(document.getElementById("pPrice").value);
+const category=document.getElementById("pCategory").value.trim();
+const image=document.getElementById("pImage").value.trim();
+const desc=document.getElementById("pDesc").value.trim();
 
-  window.openOrder = function(product){
-    selectedProduct = product;
-    document.getElementById("selectedProductText").innerText =
-      product.name + " — GH₵" + product.price + " from " + product.storeName;
-    document.getElementById("orderModal").classList.remove("hidden");
-  };
+if(!name||!price||!category||!image){alert("Fill product details.");return;}
+if(!currentSellerWhatsapp){alert("Your seller WhatsApp is missing. Create a new seller account with WhatsApp number.");return;}
 
-  window.closeOrder = function(){
-    document.getElementById("orderModal").classList.add("hidden");
-    selectedProduct = null;
-  };
+const productRef=push(ref(db,"products"));
+await set(productRef,{
+id:productRef.key,name,price,category,image,desc,
+sellerId:currentUser.uid,
+sellerEmail:currentUser.email,
+sellerWhatsapp:currentSellerWhatsapp,
+storeName:currentStoreName||"New Seller Store",
+approved:true,
+createdAt:new Date().toISOString()
+});
 
-  window.closeSuccess = function(){
-    document.getElementById("successModal").classList.add("hidden");
-  };
+["pName","pPrice","pCategory","pImage","pDesc"].forEach(id=>document.getElementById(id).value="");
+alert("Product uploaded.");
+show("shop");
+};
 
-  function openSuccess(message, whatsappLink){
-    lastWhatsappLink = whatsappLink;
-    document.getElementById("successText").innerText = message;
-    const btn = document.getElementById("whatsappBtn");
+window.openOrder = function(product){
+selectedProduct = product;
+document.getElementById("selectedProductText").innerText =
+product.name + " — GH₵" + product.price + " from " + product.storeName;
+document.getElementById("orderModal").classList.remove("hidden");
+};
 
-    if(whatsappLink){
-      btn.classList.remove("hidden");
-      btn.onclick = function(){ window.open(lastWhatsappLink, "_blank"); };
-    }else{
-      btn.classList.add("hidden");
-    }
+window.closeOrder = function(){
+document.getElementById("orderModal").classList.add("hidden");
+selectedProduct = null;
+};
 
-    document.getElementById("successModal").classList.remove("hidden");
-  }
+window.closeSuccess = function(){
+document.getElementById("successModal").classList.add("hidden");
+};
 
-  window.submitOrder = async function(){
-    if(!selectedProduct){alert("No product selected.");return;}
+function openSuccess(message, whatsappLink){
+lastWhatsappLink = whatsappLink;
+document.getElementById("successText").innerText = message;
+const btn = document.getElementById("whatsappBtn");
 
-    const customerName=document.getElementById("customerName").value.trim();
-    const customerPhone=document.getElementById("customerPhone").value.trim();
-    const customerLocation=document.getElementById("customerLocation").value.trim();
-    const customerNote=document.getElementById("customerNote").value.trim();
+if(whatsappLink){
+btn.classList.remove("hidden");
+btn.onclick = function(){ window.open(lastWhatsappLink, "_blank"); };
+}else{
+btn.classList.add("hidden");
+}
 
-    if(!customerName||!customerPhone||!customerLocation){
-      alert("Fill name, phone and location.");
-      return;
-    }
+document.getElementById("successModal").classList.remove("hidden");
+}
 
-    const commission = selectedProduct.price * 0.10;
-    const sellerAmount = selectedProduct.price - commission;
+window.submitOrder = async function(){
+if(!selectedProduct){alert("No product selected.");return;}
 
-    const orderRef = push(ref(db,"orders"));
-    const orderId = orderRef.key;
+const customerName=document.getElementById("customerName").value.trim();
+const customerPhone=document.getElementById("customerPhone").value.trim();
+const customerLocation=document.getElementById("customerLocation").value.trim();
+const customerNote=document.getElementById("customerNote").value.trim();
 
-    await set(orderRef,{
-      id:orderId,
-      productId:selectedProduct.id,
-      productName:selectedProduct.name,
-      productPrice:selectedProduct.price,
-      productImage:selectedProduct.image,
-      sellerId:selectedProduct.sellerId,
-      sellerEmail:selectedProduct.sellerEmail,
-      sellerWhatsapp:selectedProduct.sellerWhatsapp || "",
-      storeName:selectedProduct.storeName,
-      customerName,customerPhone,customerLocation,customerNote,
-      commission,sellerAmount,
-      status:"New Order",
-      createdAt:new Date().toISOString()
-    });
+if(!customerName||!customerPhone||!customerLocation){
+alert("Fill name, phone and location.");
+return;
+}
 
-  const message = `🛍️ NEW BUYBIG ORDER
+const commission = selectedProduct.price * 0.10;
+const sellerAmount = selectedProduct.price - commission;
+
+const orderRef = push(ref(db,"orders"));
+const orderId = orderRef.key;
+
+await set(orderRef,{
+id:orderId,
+productId:selectedProduct.id,
+productName:selectedProduct.name,
+productPrice:selectedProduct.price,
+productImage:selectedProduct.image,
+sellerId:selectedProduct.sellerId,
+sellerEmail:selectedProduct.sellerEmail,
+sellerWhatsapp:selectedProduct.sellerWhatsapp || "",
+storeName:selectedProduct.storeName,
+customerName,customerPhone,customerLocation,customerNote,
+commission,sellerAmount,
+status:"New Order",
+createdAt:new Date().toISOString()
+});
+
+const message = `🛍️ NEW BUYBIG ORDER
 
 Order ID: ${orderId}
 
@@ -373,110 +401,110 @@ Please confirm availability, delivery cost, and payment details with the custome
 
 Sent from BUYBIG.`;
 
-    const sellerPhone = cleanPhone(selectedProduct.sellerWhatsapp);
-    const whatsappLink = sellerPhone ? "https://wa.me/" + sellerPhone + "?text=" + encodeURIComponent(message) : "";
+const sellerPhone = cleanPhone(selectedProduct.sellerWhatsapp);
+const whatsappLink = sellerPhone ? "https://wa.me/" + sellerPhone + "?text=" + encodeURIComponent(message) : "";
 
-    ["customerName","customerPhone","customerLocation","customerNote"].forEach(id=>document.getElementById(id).value="");
-    closeOrder();
+["customerName","customerPhone","customerLocation","customerNote"].forEach(id=>document.getElementById(id).value="");
+closeOrder();
 
-  if (whatsappLink) {
-  openSuccess("Order saved ✅ Tap the green WhatsApp button to chat directly with the seller.", whatsappLink);
+if (whatsappLink) {
+openSuccess("Order saved ✅ Tap Order Now to continue on WhatsApp with the seller.", whatsappLink);
 } else {
-  openSuccess("Order saved ✅ But this product has no seller WhatsApp saved. Please contact BUYBIG support.", "");
+openSuccess("Order saved ✅ But this product has no seller WhatsApp saved. Please contact BUYBIG support.", "");
 }
-  };
+};
 
-  onAuthStateChanged(auth,(user)=>{
-    currentUser=user;
-    if(user){
-      document.getElementById("authBox").classList.add("hidden");
-      document.getElementById("sellerDashboard").classList.remove("hidden");
-      onValue(ref(db,"users/"+user.uid),(snapshot)=>{
-        const data=snapshot.val();
-        currentStoreName=data?.storeName||user.email;
-        currentSellerWhatsapp=data?.sellerWhatsapp||"";
-        document.getElementById("currentSeller").innerText=currentStoreName;
-        document.getElementById("currentWhatsapp").innerText=currentSellerWhatsapp || "Not set";
-      });
-      loadSellerOrders(user.uid);
-    }else{
-      document.getElementById("authBox").classList.remove("hidden");
-      document.getElementById("sellerDashboard").classList.add("hidden");
-      currentStoreName="";
-      currentSellerWhatsapp="";
-    }
-  });
+onAuthStateChanged(auth,(user)=>{
+currentUser=user;
+if(user){
+document.getElementById("authBox").classList.add("hidden");
+document.getElementById("sellerDashboard").classList.remove("hidden");
+onValue(ref(db,"users/"+user.uid),(snapshot)=>{
+const data=snapshot.val();
+currentStoreName=data?.storeName||user.email;
+currentSellerWhatsapp=data?.sellerWhatsapp||"";
+document.getElementById("currentSeller").innerText=currentStoreName;
+document.getElementById("currentWhatsapp").innerText=currentSellerWhatsapp || "Not set";
+});
+loadSellerOrders(user.uid);
+}else{
+document.getElementById("authBox").classList.remove("hidden");
+document.getElementById("sellerDashboard").classList.add("hidden");
+currentStoreName="";
+currentSellerWhatsapp="";
+}
+});
 
-  function loadProducts(){
-    const box=document.getElementById("products");
-    const status=document.getElementById("productStatus");
-    onValue(ref(db,"products"),(snapshot)=>{
-      const data=snapshot.val();
-      if(!data){status.innerText="No products yet.";box.innerHTML="";return;}
-      const products=Object.values(data).reverse();
-      status.innerText=products.length+" product(s) found.";
-      document.getElementById("adminProductCount").innerText=products.length;
-      document.getElementById("storeCount").innerText=new Set(products.map(p=>p.storeName)).size;
+function loadProducts(){
+const box=document.getElementById("products");
+const status=document.getElementById("productStatus");
+onValue(ref(db,"products"),(snapshot)=>{
+const data=snapshot.val();
+if(!data){status.innerText="No products yet.";box.innerHTML="";return;}
+const products=Object.values(data).reverse();
+status.innerText=products.length+" product(s) found.";
+document.getElementById("adminProductCount").innerText=products.length;
+document.getElementById("storeCount").innerText=new Set(products.map(p=>p.storeName)).size;
 
-     box.innerHTML = products.map(p => `
-        <div class="card product">
-          <img src="${p.image}" onerror="this.src='https://via.placeholder.com/900x650?text=BUYBIG'">
-          <div class="product-body">
-            <span class="badge">${p.category||"General"}</span>
-            <h3>${p.name}</h3>
-            <p><b>${p.storeName||"Seller Store"}</b></p>
-            <p>${p.desc||""}</p>
-            <p class="price">GH₵${p.price}</p>
-            <button class="btn" onclick='openOrder(${JSON.stringify(p).replace(/'/g,"&#39;")})'>Buy Now</button>
-          </div>
-        </div>
-      `).join("");
-    });
-  }
+box.innerHTML = products.map(p => `
+<div class="card product">
+<img src="${p.image}" onerror="this.src='https://via.placeholder.com/900x650?text=BUYBIG'">
+<div class="product-body">
+<span class="badge">${p.category||"General"}</span>
+<h3>${p.name}</h3>
+<p><b>${p.storeName||"Seller Store"}</b></p>
+<p>${p.desc||""}</p>
+<p class="price">GH₵${p.price}</p>
+<button class="btn" onclick='openOrder(${JSON.stringify(p).replace(/'/g,"&#39;")})'>Buy Now</button>
+</div>
+</div>
+`).join("");
+});
+}
 
-  function loadOrders(){
-    onValue(ref(db,"orders"),(snapshot)=>{
-      const data=snapshot.val();
-      const adminBox=document.getElementById("adminOrders");
-      if(!data){adminBox.innerHTML="No orders yet.";document.getElementById("orderCount").innerText="0";return;}
-      const orders=Object.values(data).reverse();
-      document.getElementById("orderCount").innerText=orders.length;
-      adminBox.innerHTML=orders.map(o=>`
-        <div class="card">
-          <h3>${o.productName} — GH₵${o.productPrice}</h3>
-          <p><b>Customer:</b> ${o.customerName} | ${o.customerPhone}</p>
-          <p><b>Location:</b> ${o.customerLocation}</p>
-          <p><b>Store:</b> ${o.storeName}</p>
-          <p><b>Seller WhatsApp:</b> ${o.sellerWhatsapp || "Not set"}</p>
-          <p><b>Commission:</b> GH₵${o.commission} | <b>Seller gets:</b> GH₵${o.sellerAmount}</p>
-          <p><b>Status:</b> ${o.status}</p>
-        </div>
-      `).join("");
-    });
-  }
+function loadOrders(){
+onValue(ref(db,"orders"),(snapshot)=>{
+const data=snapshot.val();
+const adminBox=document.getElementById("adminOrders");
+if(!data){adminBox.innerHTML="No orders yet.";document.getElementById("orderCount").innerText="0";return;}
+const orders=Object.values(data).reverse();
+document.getElementById("orderCount").innerText=orders.length;
+adminBox.innerHTML=orders.map(o=>`
+<div class="card">
+<h3>${o.productName} — GH₵${o.productPrice}</h3>
+<p><b>Customer:</b> ${o.customerName} | ${o.customerPhone}</p>
+<p><b>Location:</b> ${o.customerLocation}</p>
+<p><b>Store:</b> ${o.storeName}</p>
+<p><b>Seller WhatsApp:</b> ${o.sellerWhatsapp || "Not set"}</p>
+<p><b>Commission:</b> GH₵${o.commission} | <b>Seller gets:</b> GH₵${o.sellerAmount}</p>
+<p><b>Status:</b> ${o.status}</p>
+</div>
+`).join("");
+});
+}
 
-  function loadSellerOrders(uid){
-    onValue(ref(db,"orders"),(snapshot)=>{
-      const data=snapshot.val();
-      const box=document.getElementById("sellerOrders");
-      if(!data){box.innerHTML="No orders yet.";return;}
-      const orders=Object.values(data).filter(o=>o.sellerId===uid).reverse();
-      if(!orders.length){box.innerHTML="No orders for your store yet.";return;}
-      box.innerHTML=orders.map(o=>`
-        <div class="alert-card">
-          <h3>🔔 New order: ${o.productName} — GH₵${o.productPrice}</h3>
-          <p><b>Customer:</b> ${o.customerName} | ${o.customerPhone}</p>
-          <p><b>Location:</b> ${o.customerLocation}</p>
-          <p><b>Note:</b> ${o.customerNote||"None"}</p>
-          <p><b>You get:</b> GH₵${o.sellerAmount}</p>
-          <p><b>Status:</b> ${o.status}</p>
-        </div>
-      `).join("");
-    });
-  }
+function loadSellerOrders(uid){
+onValue(ref(db,"orders"),(snapshot)=>{
+const data=snapshot.val();
+const box=document.getElementById("sellerOrders");
+if(!data){box.innerHTML="No orders yet.";return;}
+const orders=Object.values(data).filter(o=>o.sellerId===uid).reverse();
+if(!orders.length){box.innerHTML="No orders for your store yet.";return;}
+box.innerHTML=orders.map(o=>`
+<div class="alert-card">
+<h3>🔔 New order: ${o.productName} — GH₵${o.productPrice}</h3>
+<p><b>Customer:</b> ${o.customerName} | ${o.customerPhone}</p>
+<p><b>Location:</b> ${o.customerLocation}</p>
+<p><b>Note:</b> ${o.customerNote||"None"}</p>
+<p><b>You get:</b> GH₵${o.sellerAmount}</p>
+<p><b>Status:</b> ${o.status}</p>
+</div>
+`).join("");
+});
+}
 
-  loadProducts();
-  loadOrders();
+loadProducts();
+loadOrders();
 </script>
 
 </body>

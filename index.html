@@ -356,8 +356,8 @@
       createdAt:new Date().toISOString()
     });
 
-    const message =
-`🛍️ NEW BUYBIG ORDER
+  const message = `🛍️ NEW BUYBIG ORDER
+
 Order ID: ${orderId}
 
 Product: ${selectedProduct.name}
@@ -371,7 +371,7 @@ Note: ${customerNote || "None"}
 
 Please confirm availability, delivery cost, and payment details with the customer.
 
-Sent from BUYBIG.
+Sent from BUYBIG.`;
 
     const sellerPhone = cleanPhone(selectedProduct.sellerWhatsapp);
     const whatsappLink = sellerPhone ? "https://wa.me/" + sellerPhone + "?text=" + encodeURIComponent(message) : "";

@@ -380,7 +380,12 @@ Please contact the customer to confirm availability and delivery.`;
     ["customerName","customerPhone","customerLocation","customerNote"].forEach(id=>document.getElementById(id).value="");
     closeOrder();
 
-    openSuccess("Your order has been saved. The seller can be notified on WhatsApp now.", whatsappLink);
+    if (whatsappLink) {
+  window.open(whatsappLink, "_blank");
+  openSuccess("Order saved ✅ WhatsApp is opening now so you can chat directly with the seller.", whatsappLink);
+} else {
+  openSuccess("Order saved ✅ But this product has no seller WhatsApp saved. Please contact BUYBIG support.", "");
+}
   };
 
   onAuthStateChanged(auth,(user)=>{

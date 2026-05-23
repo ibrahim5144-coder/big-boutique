@@ -1,376 +1,311 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>B.I.G Boutique</title>
-<link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600;700;800&family=Cormorant+Garamond:wght@500;600&display=swap" rel="stylesheet">
-<style>
-:root{--dark:#090909;--gold:#d4af37;--cream:#fffaf0;--soft:#f7f3ec;--text:#161616;--muted:#777;--border:#e7ddcf;--danger:#b94040;--ok:#16803c;--orange:#d66b00;--shadow:0 18px 40px rgba(0,0,0,.08)}
-*{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
-body{font-family:Jost,sans-serif;background:var(--cream);color:var(--text);overflow-x:hidden}
-.topbar{height:72px;padding:0 4%;display:grid;grid-template-columns:auto 1fr auto;gap:1rem;align-items:center;background:rgba(255,250,240,.97);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:80;backdrop-filter:blur(10px)}
-.logo{text-decoration:none;color:var(--dark);font-family:"Cormorant Garamond",serif;font-size:1.85rem;letter-spacing:.18em;line-height:.9;font-weight:600;white-space:nowrap}
-.logo span{display:block;font-family:Jost,sans-serif;font-size:.58rem;color:var(--gold);letter-spacing:.34em;margin-top:.34rem;text-transform:uppercase}
-.search-wrap{display:flex;align-items:center;max-width:700px;margin:auto;width:100%;background:#fff;border:1px solid var(--border);border-radius:999px;overflow:hidden;box-shadow:0 8px 22px rgba(0,0,0,.04)}
-.search-wrap select{border:0;background:var(--soft);padding:1rem .8rem;outline:none;font-weight:700}
-.search-wrap input{border:0;outline:0;width:100%;padding:1rem;font-size:1rem;font-family:Jost,sans-serif}
-.search-wrap button{border:0;background:var(--gold);color:var(--dark);font-weight:800;padding:1rem 1.2rem;cursor:pointer}
-.actions{display:flex;gap:.7rem;align-items:center}
-.chat-btn{display:inline-block;text-decoration:none;background:var(--dark);color:#fff;border-radius:999px;padding:.75rem 1rem;font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;font-weight:800}
-.cart-btn{position:relative;width:46px;height:46px;border:1px solid var(--border);border-radius:50%;background:#fff;cursor:pointer;font-size:1.3rem;box-shadow:0 8px 20px rgba(0,0,0,.05)}
-.cart-count{position:absolute;top:-6px;right:-4px;width:20px;height:20px;border-radius:50%;background:var(--gold);color:#fff;font-size:.72rem;display:flex;align-items:center;justify-content:center;font-weight:800}
+import React, { useMemo, useState } from "react";
+import { motion } from "framer-motion";
+import { Search, ShieldCheck, Store, ShoppingBag, UserRound, LayoutDashboard, Package, Wallet, Bell, LockKeyhole, Truck, CheckCircle2, AlertTriangle, Eye, Plus, Menu, X, Star, Phone, MapPin, Clock3, Receipt, BadgeCheck } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
 
-.hero-market{display:grid;grid-template-columns:220px 1fr;gap:1.2rem;padding:1.2rem 4%;max-width:1400px;margin:auto}
-.side-cats{background:#fff;border:1px solid var(--border);border-radius:22px;padding:1rem;box-shadow:var(--shadow)}
-.side-cats h3{font-size:.78rem;text-transform:uppercase;letter-spacing:.18em;margin-bottom:.8rem}
-.cat-link{display:flex;justify-content:space-between;align-items:center;padding:.82rem .5rem;border-bottom:1px solid var(--border);cursor:pointer;font-weight:600;color:var(--text)}
-.cat-link:last-child{border-bottom:0}
-.cat-link:hover{color:var(--gold)}
-.market-main{display:grid;gap:1rem}
-.promo{min-height:230px;border-radius:24px;background:linear-gradient(135deg,rgba(0,0,0,.8),rgba(0,0,0,.52)),url('https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=1400') center/cover;color:#fff;padding:2rem;display:flex;flex-direction:column;justify-content:center;position:relative;overflow:hidden}
-.promo small{color:var(--gold);letter-spacing:.45em;text-transform:uppercase;font-size:.65rem;font-weight:800}
-.promo h1{font-family:"Cormorant Garamond",serif;font-size:clamp(2.1rem,5vw,4.2rem);font-weight:600;line-height:.98;margin:.65rem 0}
-.promo p{max-width:560px;color:#eee;line-height:1.7}
-.promo .cta{margin-top:1.2rem;display:inline-block;width:max-content;background:var(--gold);color:var(--dark);text-decoration:none;border-radius:999px;padding:.9rem 1.6rem;font-weight:900;font-size:.72rem;letter-spacing:.16em;text-transform:uppercase}
-.quick-tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem}
-.tile{min-height:120px;border-radius:20px;background:#fff;border:1px solid var(--border);box-shadow:var(--shadow);overflow:hidden;position:relative;padding:1rem;display:flex;flex-direction:column;justify-content:flex-end;cursor:pointer}
-.tile:before{content:"";position:absolute;inset:0;background:linear-gradient(transparent,rgba(0,0,0,.55));z-index:1}
-.tile img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-.tile span{position:relative;z-index:2;color:#fff;font-weight:900;letter-spacing:.12em;text-transform:uppercase;font-size:.78rem}
-
-.mini-strip{display:flex;overflow:auto;gap:.8rem;padding:0 4% 1rem;max-width:1400px;margin:auto;scrollbar-width:none}
-.mini-strip::-webkit-scrollbar{display:none}
-.pill{flex:0 0 auto;border:1px solid var(--border);background:#fff;border-radius:999px;padding:.72rem 1.2rem;font-size:.72rem;letter-spacing:.15em;text-transform:uppercase;font-weight:800;cursor:pointer}
-.pill.active{background:var(--dark);color:#fff;border-color:var(--dark)}
-
-.trust{display:flex;justify-content:center;gap:2rem;flex-wrap:wrap;padding:1rem 4%;background:#fff;border-top:1px solid var(--border);border-bottom:1px solid var(--border);font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);font-weight:800}
-
-.section{padding:1.4rem 4% 3rem;max-width:1400px;margin:auto}
-.products-top{display:flex;justify-content:space-between;align-items:center;margin:0 0 1.2rem;border-bottom:1px solid var(--border);padding-bottom:1rem;color:var(--muted);letter-spacing:.14em;text-transform:uppercase;font-size:.72rem;font-weight:800}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:1.2rem}
-.card{background:#fff;border:1px solid var(--border);border-radius:22px;overflow:hidden;box-shadow:var(--shadow);transition:.25s;position:relative}
-.card:hover{transform:translateY(-5px)}
-.img-wrap{height:280px;background:#eee;position:relative;overflow:hidden}
-.img-wrap img{width:100%;height:100%;object-fit:cover;display:block;transition:.4s}
-.card:hover img{transform:scale(1.05)}
-.badge-row{position:absolute;top:12px;left:12px;display:flex;gap:.35rem;z-index:2;flex-wrap:wrap}
-.badge{background:var(--dark);color:#fff;padding:.35rem .65rem;border-radius:999px;font-size:.56rem;letter-spacing:.12em;text-transform:uppercase;font-weight:900}
-.badge.gold{background:var(--gold);color:var(--dark)}
-.badge.sold{background:var(--danger)}
-.badge.low{background:var(--orange)}
-.info{padding:1rem}
-.cat{font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);font-weight:900;margin-bottom:.35rem}
-.name{font-size:1.05rem;font-weight:900;margin-bottom:.25rem}
-.desc{font-size:.8rem;color:var(--muted);line-height:1.45;margin-bottom:.75rem;min-height:34px}
-.meta{display:grid;gap:.35rem;font-size:.76rem;margin-bottom:.85rem}
-.meta span{color:var(--muted)}
-.stock{display:inline-flex;align-items:center;gap:.35rem;font-weight:900;color:var(--ok)}
-.stock.sold{color:var(--danger)}
-.stock.low{color:var(--orange)}
-.dot{width:8px;height:8px;border-radius:50%;background:currentColor;display:inline-block}
-.footer{display:flex;align-items:center;justify-content:space-between;gap:.6rem}
-.price{font-weight:900;font-size:1.05rem}
-.add,.ask{border:0;border-radius:999px;background:var(--dark);color:#fff;cursor:pointer;padding:.65rem .9rem;font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;font-weight:900;text-decoration:none;white-space:nowrap}
-.ask{background:#25d366}
-.load-wrap{text-align:center;margin-top:2rem}
-.load-more{border:1px solid var(--dark);background:transparent;color:var(--dark);padding:.9rem 2rem;border-radius:999px;cursor:pointer;text-transform:uppercase;letter-spacing:.16em;font-weight:900;font-size:.72rem}
-
-.overlay{position:fixed;inset:0;background:rgba(0,0,0,.35);opacity:0;pointer-events:none;transition:.25s;z-index:90}
-.overlay.open{opacity:1;pointer-events:auto}
-.cart-panel{position:fixed;top:0;right:-430px;width:min(400px,100%);height:100vh;background:#fff;z-index:100;box-shadow:-20px 0 45px rgba(0,0,0,.16);transition:.35s;display:flex;flex-direction:column}
-.cart-panel.open{right:0}
-.cart-head{display:flex;justify-content:space-between;align-items:center;padding:1.4rem;border-bottom:1px solid var(--border)}
-.cart-head h3{font-family:"Cormorant Garamond",serif;font-size:1.7rem}
-.close{border:0;background:#f3eee6;width:38px;height:38px;border-radius:50%;cursor:pointer;font-size:1.2rem}
-.cart-items{flex:1;overflow:auto;padding:1rem 1.4rem}
-.cart-item{display:grid;grid-template-columns:70px 1fr;gap:1rem;padding:1rem 0;border-bottom:1px solid var(--border)}
-.cart-item img{width:70px;height:86px;object-fit:cover;border-radius:14px;background:#eee}
-.cart-item h4{font-size:1rem;margin-bottom:.25rem}
-.qty{display:flex;align-items:center;gap:.5rem;margin-top:.7rem;flex-wrap:wrap}
-.qty button{width:28px;height:28px;border-radius:50%;border:1px solid var(--border);background:#fff;cursor:pointer}
-.remove{color:var(--danger);border:0!important;background:transparent!important;cursor:pointer;width:auto!important;font-weight:800}
-
-.cart-item .cart-meta{font-size:.72rem;color:var(--muted);line-height:1.5;margin:.25rem 0 .35rem}
-.cart-item .line-total{font-weight:900;color:var(--dark);margin-top:.35rem}
-.qty{background:var(--soft);border:1px solid var(--border);border-radius:999px;padding:.35rem .45rem;width:max-content}
-.qty span{min-width:22px;text-align:center;font-weight:900}
-.qty button{font-weight:900;transition:.2s}
-.qty button:hover{background:var(--dark);color:#fff}
-.remove{padding:.25rem .4rem!important;border-radius:999px!important}
-.remove:hover{background:#fff0f0!important}
-.cart-note{font-size:.78rem;color:var(--muted);line-height:1.5;margin:.7rem 0 1rem}
-.cart-total-row{display:flex;justify-content:space-between;align-items:center;background:var(--soft);border:1px solid var(--border);padding:.9rem;border-radius:16px;margin-bottom:1rem}
-.cart-total-row span{color:var(--muted);font-size:.75rem;text-transform:uppercase;letter-spacing:.12em;font-weight:900}
-.cart-total-row strong{font-size:1.25rem}
-.clear-cart{width:100%;border:0;background:transparent;color:var(--danger);font-weight:900;cursor:pointer;margin-top:.75rem}
-
-.cart-bottom{padding:1.4rem;border-top:1px solid var(--border)}
-.subtotal{display:flex;justify-content:space-between;margin-bottom:1rem;font-weight:900;font-size:1.1rem}
-.whatsapp{display:block;text-align:center;background:#25d366;color:#fff;text-decoration:none;padding:1rem;border-radius:999px;font-weight:900;letter-spacing:.12em;text-transform:uppercase;font-size:.75rem}
-.float-wa{position:fixed;right:18px;bottom:18px;width:56px;height:56px;border-radius:50%;background:#25d366;color:white;display:flex;align-items:center;justify-content:center;text-decoration:none;font-size:1.6rem;z-index:75;box-shadow:0 12px 28px rgba(37,211,102,.35)}
-.site-footer{background:var(--dark);color:#ddd;text-align:center;padding:2.5rem 4%;margin-top:2rem}
-.site-footer h3{font-family:"Cormorant Garamond",serif;color:#fff;font-size:2rem;margin-bottom:.4rem}
-.empty{text-align:center;color:var(--muted);padding:3rem 1rem;grid-column:1/-1}
-
-@media(max-width:850px){
-.topbar{grid-template-columns:auto auto;height:auto;padding:.8rem 1rem;gap:.8rem}
-.search-wrap{grid-column:1/-1;order:3}
-.chat-btn{display:none}
-.hero-market{grid-template-columns:1fr;padding:1rem}
-.side-cats{display:none}
-.quick-tiles{grid-template-columns:repeat(2,1fr)}
-.promo{min-height:210px;padding:1.4rem}
-.grid{grid-template-columns:repeat(2,1fr);gap:.9rem}
-.img-wrap{height:230px}
-.info{padding:.85rem}
-.name{font-size:.95rem}
-.desc{display:none}
-.meta{font-size:.68rem}
-.footer{align-items:flex-start;flex-direction:column}
-.add,.ask{width:100%;text-align:center}
-}
-@media(max-width:420px){.grid{grid-template-columns:1fr}.img-wrap{height:330px}.quick-tiles{grid-template-columns:1fr}}
-.toast{
-position:fixed;
-bottom:20px;
-left:50%;
-transform:translateX(-50%) translateY(100px);
-background:#111;
-color:#fff;
-padding:14px 22px;
-border-radius:14px;
-font-size:.95rem;
-font-weight:500;
-z-index:99999;
-opacity:0;
-transition:.4s ease;
-box-shadow:0 10px 30px rgba(0,0,0,.35);
-}
-
-.toast.show{
-opacity:1;
-transform:translateX(-50%) translateY(0);
-}
-</style>
-</head>
-<body>
-<header class="topbar">
-<a href="#" class="logo">B.I.G <span>Boutique</span></a>
-<div class="search-wrap">
-<select id="searchCategory"><option value="all">All</option><option value="clothes">Clothes</option><option value="sneakers">Sneakers</option><option value="bags">Bags</option><option value="accessories">Accessories</option></select>
-<input id="searchInput" type="search" placeholder="Search products, colors, sizes..." />
-<button id="searchBtn">Search</button>
-</div>
-<div class="actions">
-<a class="chat-btn" href="https://wa.me/233557254378?text=Hello%20B.I.G,%20I%20want%20to%20ask%20about%20available%20products." target="_blank">Chat</a>
-<button class="cart-btn" id="openCart">🛍️<span class="cart-count" id="cartCount">0</span></button>
-</div>
-</header>
-
-<section class="hero-market">
-<aside class="side-cats">
-<h3>All Categories</h3>
-<div class="cat-link" data-cat="clothes">Clothes <span>›</span></div>
-<div class="cat-link" data-cat="sneakers">Sneakers <span>›</span></div>
-<div class="cat-link" data-cat="bags">Bags <span>›</span></div>
-<div class="cat-link" data-cat="accessories">Accessories <span>›</span></div>
-<div class="cat-link" data-cat="available">Available Now <span>›</span></div>
-<div class="cat-link" data-cat="soldout">Sold Out <span>›</span></div>
-</aside>
-<div class="market-main">
-<div class="promo">
-<small>Fresh Stock Weekly</small>
-<h1>Shop What B.I.G Represents</h1>
-<p>Clothes, sneakers, bags and accessories shown immediately. Search, check availability, add to cart, and order through WhatsApp.</p>
-<a href="#products" class="cta">Start Shopping</a>
-</div>
-<div class="quick-tiles">
-<div class="tile" data-cat="clothes"><img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=800"><span>Clothes</span></div>
-<div class="tile" data-cat="sneakers"><img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=800"><span>Sneakers</span></div>
-<div class="tile" data-cat="bags"><img src="https://images.unsplash.com/photo-1590874103328-eac38a683ce7?w=800"><span>Bags</span></div>
-<div class="tile" data-cat="accessories"><img src="https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=800"><span>Accessories</span></div>
-</div>
-</div>
-</section>
-
-<div class="mini-strip">
-<button class="pill active" data-cat="all">All Products</button>
-<button class="pill" data-cat="available">Available</button>
-<button class="pill" data-cat="clothes">Clothes</button>
-<button class="pill" data-cat="sneakers">Sneakers</button>
-<button class="pill" data-cat="bags">Bags</button>
-<button class="pill" data-cat="accessories">Accessories</button>
-<button class="pill" data-cat="soldout">Sold Out</button>
-</div>
-
-<div class="trust"><span>WhatsApp Order</span><span>Stock Status</span><span>Size & Colors</span><span>Mobile First</span></div>
-
-<section class="section" id="products">
-<div class="products-top"><span id="heading">All Products</span><span id="count">Loading...</span></div>
-<div class="grid" id="productGrid"><p class="empty">Loading products...</p></div>
-<div class="load-wrap"><button class="load-more" id="loadMore">Load More</button></div>
-</section>
-
-<footer class="site-footer" id="about"><h3>B.I.G Boutique</h3><p id="contact">A simple marketplace-style fashion store. Search, add to cart, and order on WhatsApp.</p></footer>
-<div class="overlay" id="overlay"></div>
-<aside class="cart-panel" id="cartPanel"><div class="cart-head"><h3>Your Cart</h3><button class="close" id="closeCart">×</button></div><div class="cart-items" id="cartItems"></div><div class="cart-bottom"><p class="cart-note">Review your items, then checkout on WhatsApp. We will confirm color, size, and delivery cost.</p><div class="cart-total-row"><span>Total</span><strong id="cartTotal">GHC0</strong></div><a class="whatsapp" id="whatsappOrder" target="_blank" href="#">Order on WhatsApp</a><button class="clear-cart" id="clearCart">Clear cart</button></div></aside>
-<a class="float-wa" href="https://wa.me/233557254378?text=Hello%20B.I.G,%20I%20want%20to%20ask%20about%20your%20products." target="_blank">☘</a>
-
-<script>
-const WHATSAPP_NUMBER='233557254378';
-const API_URL='https://sheetdb.io/api/v1/jm2u53672y7vv';
-const SAMPLE_PRODUCTS=[
-{id:1,name:'Luxury Hoodie',cat:'clothes',price:150,image_url:'https://i.ibb.co/JwxFTLL3/shopping.webp',desc:'Premium oversized hoodie',badge:'New',stock:1,status:'available',colors:'White, Black, Blue',sizes:'M, L, XL'},
-{id:2,name:'Classic Street Sneakers',cat:'sneakers',price:320,image_url:'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=900',desc:'Clean everyday sneakers',badge:'Hot',stock:0,status:'soldout',colors:'White, Red',sizes:'40, 41, 42'},
-{id:3,name:'Mini Leather Bag',cat:'bags',price:210,image_url:'https://images.unsplash.com/photo-1590874103328-eac38a683ce7?w=900',desc:'Compact premium everyday bag',badge:'Fresh',stock:4,status:'available',colors:'Black, Brown',sizes:'One Size'},
-{id:4,name:'Gold Chain Set',cat:'accessories',price:90,image_url:'https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=900',desc:'Clean accessory for any fit',badge:'New',stock:2,status:'available',colors:'Gold',sizes:'One Size'}
+const productsSeed = [
+  {
+    id: 1,
+    name: "Premium Men's Sneakers",
+    store: "Kumasi Drip Boutique",
+    price: 320,
+    category: "Shoes",
+    badge: "Verified seller",
+    image: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?q=80&w=1200&auto=format&fit=crop",
+    rating: 4.8,
+    stock: 12,
+  },
+  {
+    id: 2,
+    name: "Elegant Ladies Handbag",
+    store: "Accra Belle Store",
+    price: 180,
+    category: "Bags",
+    badge: "Fast delivery",
+    image: "https://images.unsplash.com/photo-1590874103328-eac38a683ce7?q=80&w=1200&auto=format&fit=crop",
+    rating: 4.7,
+    stock: 7,
+  },
+  {
+    id: 3,
+    name: "Classic Streetwear Hoodie",
+    store: "Urban Kings GH",
+    price: 230,
+    category: "Clothes",
+    badge: "New arrival",
+    image: "https://images.unsplash.com/photo-1556821840-3a63f95609a7?q=80&w=1200&auto=format&fit=crop",
+    rating: 4.6,
+    stock: 19,
+  },
+  {
+    id: 4,
+    name: "Smart Business Watch",
+    store: "TimeLux Ghana",
+    price: 450,
+    category: "Watches",
+    badge: "Secure checkout",
+    image: "https://images.unsplash.com/photo-1524592094714-0f0654e20314?q=80&w=1200&auto=format&fit=crop",
+    rating: 4.9,
+    stock: 4,
+  },
 ];
-let PRODUCTS=[],cart=[],activeCat='all',searchTerm='',visibleCount=8;
-const productGrid=document.getElementById('productGrid'),count=document.getElementById('count'),heading=document.getElementById('heading'),cartPanel=document.getElementById('cartPanel'),overlay=document.getElementById('overlay'),cartItems=document.getElementById('cartItems'),cartCount=document.getElementById('cartCount'),cartTotal=document.getElementById('cartTotal'),whatsappOrder=document.getElementById('whatsappOrder'),searchInput=document.getElementById('searchInput'),searchCategory=document.getElementById('searchCategory'),loadMore=document.getElementById('loadMore');
-function money(n){return 'GHC'+Number(n||0).toFixed(0)}
-function cleanStatus(p){const stock=Number(p.stock||0);const status=String(p.status||'').toLowerCase().trim();if(status==='soldout'||status==='sold out'||stock<=0)return'soldout';if(status==='ask')return'ask';return'available'}
-function stockLabel(p){const stock=Number(p.stock||0),status=cleanStatus(p);if(status==='soldout')return{text:'Sold Out',cls:'sold'};if(status==='ask')return{text:'Ask Availability',cls:'low'};if(stock<=2)return{text:`Only ${stock} left`,cls:'low'};return{text:'Available',cls:''}}
-async function loadProducts(){try{const res=await fetch(API_URL);const data=await res.json();PRODUCTS=data.map((item,index)=>({id:Number(item.id||index+1),name:item.name||item.title||'',cat:String(item.cat||item.category||'clothes').toLowerCase().trim(),price:Number(item.price||0),image_url:item.image_url||item.image||'',desc:item.desc||item.description||'',badge:item.badge||'',stock:Number(item.stock??1),status:item.status||'available',colors:item.colors||'',sizes:item.sizes||''})).filter(p=>p.name&&p.image_url);if(!PRODUCTS.length)PRODUCTS=SAMPLE_PRODUCTS}catch(e){PRODUCTS=SAMPLE_PRODUCTS}renderProducts()}
-function getFiltered(){return PRODUCTS.filter(p=>{const status=cleanStatus(p);const text=`${p.name} ${p.cat} ${p.desc} ${p.colors} ${p.sizes} ${p.badge}`.toLowerCase();const categoryMatch=activeCat==='all'||p.cat===activeCat||(activeCat==='available'&&status==='available')||(activeCat==='soldout'&&status==='soldout');const searchMatch=!searchTerm||text.includes(searchTerm.toLowerCase());return categoryMatch&&searchMatch})}
-function setCategory(cat){activeCat=cat;visibleCount=8;document.querySelectorAll('[data-cat]').forEach(b=>b.classList.remove('active'));document.querySelectorAll(`[data-cat="${cat}"]`).forEach(b=>b.classList.add('active'));renderProducts();document.getElementById('products').scrollIntoView({behavior:'smooth'})}
-function renderProducts(){
-const filtered=getFiltered();
-const shown=filtered.slice(0,visibleCount);
 
-heading.textContent=
-activeCat==='all'
-? 'All Products'
-: activeCat.charAt(0).toUpperCase()+activeCat.slice(1);
+const ordersSeed = [
+  { id: "ORD-1041", customer: "Ama Boateng", product: "Premium Men's Sneakers", total: 320, seller: "Kumasi Drip Boutique", status: "Awaiting delivery", commission: 32 },
+  { id: "ORD-1042", customer: "Kwame Mensah", product: "Elegant Ladies Handbag", total: 180, seller: "Accra Belle Store", status: "Paid - seller notified", commission: 18 },
+  { id: "ORD-1043", customer: "Nana Yaa", product: "Smart Business Watch", total: 450, seller: "TimeLux Ghana", status: "Payout paused", commission: 45 },
+];
 
-count.textContent=`${filtered.length} Results`;
+const sellersSeed = [
+  { name: "Kumasi Drip Boutique", owner: "Mariam", products: 24, sales: 3940, status: "Verified", payout: "Approved" },
+  { name: "Accra Belle Store", owner: "Selina", products: 18, sales: 2110, status: "Verified", payout: "Approved" },
+  { name: "TimeLux Ghana", owner: "Kofi", products: 9, sales: 450, status: "Review", payout: "Paused 48h" },
+];
 
-if(!shown.length){
-productGrid.innerHTML='<p class="empty">No products found.</p>';
-loadMore.style.display='none';
-return;
+const categories = ["All", "Shoes", "Bags", "Clothes", "Watches"];
+
+function money(value) {
+  return `GH₵${Number(value).toLocaleString()}`;
 }
 
-productGrid.innerHTML=shown.map(p=>{
-const status=cleanStatus(p);
-const stock=stockLabel(p);
-const productName=encodeURIComponent(p.name);
-const askLink=`https://wa.me/${WHATSAPP_NUMBER}?text=Hello%20B.I.G,%20is%20this%20product%20available:%20${productName}`;
-
-return `
-<div class="card">
-<div class="img-wrap">
-<img src="${p.image_url}" alt="${p.name}">
-<div class="badge-row">
-${p.badge ? `<span class="badge gold">${p.badge}</span>` : ''}
-<span class="badge ${stock.cls}">${stock.text}</span>
-</div>
-</div>
-
-<div class="info">
-<div class="cat">${p.cat}</div>
-<div class="name">${p.name}</div>
-<div class="desc">${p.desc||''}</div>
-
-<div class="meta">
-<span>Colors: ${p.colors||'N/A'}</span>
-<span>Sizes: ${p.sizes||'N/A'}</span>
-</div>
-
-<div class="stock ${stock.cls}">
-<span class="dot"></span>${stock.text}
-</div>
-
-<div class="footer">
-<div class="price">${money(p.price)}</div>
-${status==='soldout'
-? `<a class="add ask" href="${askLink}" target="_blank">ASK</a>`
-: `<button class="add" onclick="addToCart(${p.id})">ADD</button>`
-}
-</div>
-</div>
-</div>
-`;
-}).join('');
-
-loadMore.style.display = visibleCount >= filtered.length ? 'none' : 'inline-block';
-}
-function showToast(message) {
-
-const toast = document.createElement('div');
-
-toast.className = 'toast';
-
-toast.innerText = message;
-
-document.body.appendChild(toast);
-
-setTimeout(() => {
-toast.classList.add('show');
-}, 100);
-
-setTimeout(() => {
-
-toast.classList.remove('show');
-
-setTimeout(() => {
-toast.remove();
-}, 400);
-
-}, 2500);
-
-}
-function addToCart(id){const product=PRODUCTS.find(p=>p.id===id);if(!product)return;const stock=Number(product.stock||0),existing=cart.find(i=>i.id===id),current=existing?existing.qty:0;if(cleanStatus(product)!=='available'||stock<=0){showToast('This product is not available. Tap ASK to chat with us.');return}if(current>=stock){showToast(`Only ${product.stock} available in stock.`);return}if(existing)existing.qty++;else cart.push({...product,qty:1});renderCart();openCart()}
-function changeQty(id,amount){const item=cart.find(i=>i.id===id);if(!item)return;const product=PRODUCTS.find(p=>p.id===id);const stock=Number(product?.stock||item.stock||0);if(amount>0&&item.qty>=stock){showToast(`Only ${stock} available in stock.`);return}item.qty+=amount;if(item.qty<=0)cart=cart.filter(i=>i.id!==id);renderCart()}
-function removeItem(id){cart=cart.filter(i=>i.id!==id);renderCart()}
-function clearCart(){cart=[];renderCart();showToast('Cart cleared.')}
-function renderCart(){
-cartCount.textContent=cart.reduce((s,i)=>s+i.qty,0);
-const total=cart.reduce((s,i)=>s+i.price*i.qty,0);
-cartTotal.textContent=money(total);
-
-if(!cart.length){
-cartItems.innerHTML='<p class="empty">Your cart is empty.</p>';
-whatsappOrder.href=`https://wa.me/${WHATSAPP_NUMBER}?text=Hello%20B.I.G,%20I%20want%20to%20ask%20about%20your%20products.`;
-whatsappOrder.textContent='Order on WhatsApp';
-return;
+function Pill({ children, tone = "default" }) {
+  const tones = {
+    default: "bg-slate-100 text-slate-700",
+    green: "bg-emerald-100 text-emerald-700",
+    amber: "bg-amber-100 text-amber-800",
+    blue: "bg-blue-100 text-blue-700",
+    dark: "bg-slate-900 text-white",
+  };
+  return <span className={`inline-flex items-center rounded-full px-3 py-1 text-xs font-semibold ${tones[tone]}`}>{children}</span>;
 }
 
-cartItems.innerHTML=cart.map(i=>`
-<div class="cart-item">
-<img src="${i.image_url}" alt="${i.name}">
-<div>
-<h4>${i.name}</h4>
-<div class="cart-meta">
-<div>${money(i.price)} each</div>
-<div>${i.colors?'Colors: '+i.colors:''}${i.sizes?' | Sizes: '+i.sizes:''}</div>
-</div>
-<div class="line-total">${money(i.price*i.qty)}</div>
-<div class="qty">
-<button onclick="changeQty(${i.id},-1)">−</button>
-<span>${i.qty}</span>
-<button onclick="changeQty(${i.id},1)">+</button>
-<button class="remove" onclick="removeItem(${i.id})">Remove</button>
-</div>
-</div>
-</div>`).join('');
-
-const orderId='BIG-'+Date.now().toString().slice(-6);
-const lines=cart.map((i,index)=>`${index+1}. ${i.name}%0A   Qty: ${i.qty}%0A   Price: ${money(i.price*i.qty)}${i.colors?'%0A   Colors: '+encodeURIComponent(i.colors):''}${i.sizes?'%0A   Sizes: '+encodeURIComponent(i.sizes):''}`).join('%0A%0A');
-const message=`Hello B.I.G, I want to place an order.%0A%0AOrder ID: ${orderId}%0A%0A${lines}%0A%0ATotal: ${money(total)}%0A%0AName:%0ALocation:%0ADelivery or pickup:%0APreferred color/size:%0A%0APlease confirm availability and delivery cost.`;
-whatsappOrder.href=`https://wa.me/${WHATSAPP_NUMBER}?text=${message}`;
-whatsappOrder.textContent='Checkout on WhatsApp';
+function Stat({ icon: Icon, label, value }) {
+  return (
+    <Card className="rounded-2xl border-0 shadow-sm">
+      <CardContent className="flex items-center gap-4 p-4">
+        <div className="rounded-2xl bg-slate-100 p-3"><Icon className="h-5 w-5" /></div>
+        <div>
+          <p className="text-xs text-slate-500">{label}</p>
+          <p className="text-xl font-bold text-slate-950">{value}</p>
+        </div>
+      </CardContent>
+    </Card>
+  );
 }
-function openCart(){cartPanel.classList.add('open');overlay.classList.add('open')}
-function closeCart(){cartPanel.classList.remove('open');overlay.classList.remove('open')}
-document.getElementById('openCart').addEventListener('click',openCart);document.getElementById('closeCart').addEventListener('click',closeCart);document.getElementById('clearCart').addEventListener('click',clearCart);overlay.addEventListener('click',closeCart);
-document.querySelectorAll('[data-cat]').forEach(btn=>btn.addEventListener('click',()=>setCategory(btn.dataset.cat)));
-searchInput.addEventListener('input',e=>{searchTerm=e.target.value.trim();activeCat=searchCategory.value;visibleCount=8;renderProducts()});
-searchCategory.addEventListener('change',()=>{activeCat=searchCategory.value;visibleCount=8;renderProducts()});
-document.getElementById('searchBtn').addEventListener('click',()=>{searchTerm=searchInput.value.trim();activeCat=searchCategory.value;renderProducts();document.getElementById('products').scrollIntoView({behavior:'smooth'})});
-loadMore.addEventListener('click',()=>{visibleCount+=8;renderProducts()});
-loadProducts();renderCart();
-</script>
-</body>
-</html>
+
+function Header({ view, setView }) {
+  const [open, setOpen] = useState(false);
+  const nav = [
+    ["shop", "Shop"],
+    ["seller", "Seller"],
+    ["admin", "Admin"],
+    ["security", "Trust"],
+  ];
+  return (
+    <div className="sticky top-0 z-50 border-b border-slate-200 bg-white/90 backdrop-blur-xl">
+      <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3">
+        <button onClick={() => setView("shop")} className="flex items-center gap-2">
+          <div className="grid h-10 w-10 place-items-center rounded-2xl bg-slate-950 text-white"><ShoppingBag className="h-5 w-5" /></div>
+          <div className="text-left">
+            <p className="text-base font-black leading-tight text-slate-950">B.I.G Market</p>
+            <p className="text-xs text-slate-500">Trusted Ghana marketplace</p>
+          </div>
+        </button>
+        <div className="hidden items-center gap-2 md:flex">
+          {nav.map(([key, label]) => (
+            <button key={key} onClick={() => setView(key)} className={`rounded-full px-4 py-2 text-sm font-semibold transition ${view === key ? "bg-slate-950 text-white" : "text-slate-600 hover:bg-slate-100"}`}>{label}</button>
+          ))}
+        </div>
+        <div className="hidden items-center gap-2 md:flex">
+          <Button className="rounded-full bg-slate-950">Join as Seller</Button>
+        </div>
+        <button className="md:hidden" onClick={() => setOpen(!open)}>{open ? <X /> : <Menu />}</button>
+      </div>
+      {open && (
+        <div className="border-t bg-white p-4 md:hidden">
+          {nav.map(([key, label]) => (
+            <button key={key} onClick={() => { setView(key); setOpen(false); }} className="block w-full rounded-xl px-4 py-3 text-left font-semibold hover:bg-slate-100">{label}</button>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
+function ShopView({ addToCart, cart }) {
+  const [category, setCategory] = useState("All");
+  const [query, setQuery] = useState("");
+  const products = useMemo(() => productsSeed.filter(p => (category === "All" || p.category === category) && p.name.toLowerCase().includes(query.toLowerCase())), [category, query]);
+
+  return (
+    <div>
+      <section className="mx-auto grid max-w-7xl gap-6 px-4 py-8 md:grid-cols-[1.2fr_.8fr] md:py-12">
+        <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} className="rounded-[2rem] bg-slate-950 p-6 text-white md:p-10">
+          <Pill tone="dark"><BadgeCheck className="mr-1 h-3 w-3" /> Seller verified before selling</Pill>
+          <h1 className="mt-5 max-w-2xl text-4xl font-black tracking-tight md:text-6xl">One clean marketplace for trusted Ghana stores.</h1>
+          <p className="mt-4 max-w-xl text-slate-300">Customers shop. Sellers receive orders. Admin controls payouts, commissions, approvals, and suspicious activity.</p>
+          <div className="mt-6 flex flex-col gap-3 sm:flex-row">
+            <Button className="rounded-full bg-white text-slate-950 hover:bg-slate-100">Start Shopping</Button>
+            <Button variant="outline" className="rounded-full border-white/30 bg-transparent text-white hover:bg-white/10">Register Your Store</Button>
+          </div>
+        </motion.div>
+
+        <Card className="rounded-[2rem] border-0 shadow-sm">
+          <CardContent className="p-6">
+            <div className="flex items-center justify-between">
+              <h2 className="text-xl font-black">Secure order flow</h2>
+              <ShieldCheck className="h-6 w-6 text-emerald-600" />
+            </div>
+            <div className="mt-5 space-y-4">
+              {[
+                [Receipt, "Customer pays platform", "Money enters controlled checkout first."],
+                [Store, "Seller receives order", "Only their own order details are visible."],
+                [Truck, "Delivery confirmed", "Admin can confirm before payout."],
+                [Wallet, "Commission deducted", "Seller balance and platform share are clear."],
+              ].map(([Icon, title, desc]) => (
+                <div key={title} className="flex gap-3 rounded-2xl bg-slate-50 p-4">
+                  <div className="rounded-2xl bg-white p-3 shadow-sm"><Icon className="h-5 w-5" /></div>
+                  <div><p className="font-bold">{title}</p><p className="text-sm text-slate-500">{desc}</p></div>
+                </div>
+              ))}
+            </div>
+          </CardContent>
+        </Card>
+      </section>
+
+      <section className="mx-auto max-w-7xl px-4 pb-10">
+        <div className="mb-5 flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+          <div>
+            <h2 className="text-2xl font-black text-slate-950">Featured products</h2>
+            <p className="text-sm text-slate-500">Demo products from approved stores.</p>
+          </div>
+          <div className="flex flex-col gap-3 sm:flex-row">
+            <div className="flex items-center gap-2 rounded-full border bg-white px-4 py-2">
+              <Search className="h-4 w-4 text-slate-400" />
+              <input value={query} onChange={e => setQuery(e.target.value)} placeholder="Search products..." className="w-full bg-transparent text-sm outline-none" />
+            </div>
+            <Pill tone="blue">Cart: {cart.length}</Pill>
+          </div>
+        </div>
+        <div className="mb-6 flex flex-wrap gap-2">
+          {categories.map(c => <button key={c} onClick={() => setCategory(c)} className={`rounded-full px-4 py-2 text-sm font-semibold ${category === c ? "bg-slate-950 text-white" : "bg-slate-100 text-slate-700"}`}>{c}</button>)}
+        </div>
+        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          {products.map(p => (
+            <motion.div key={p.id} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}>
+              <Card className="overflow-hidden rounded-[1.6rem] border-0 shadow-sm">
+                <div className="relative h-52 overflow-hidden bg-slate-100">
+                  <img src={p.image} alt={p.name} className="h-full w-full object-cover transition duration-500 hover:scale-105" />
+                  <div className="absolute left-3 top-3"><Pill tone="green">{p.badge}</Pill></div>
+                </div>
+                <CardContent className="p-4">
+                  <div className="mb-2 flex items-center justify-between text-xs text-slate-500"><span>{p.store}</span><span className="flex items-center gap-1"><Star className="h-3 w-3 fill-current" /> {p.rating}</span></div>
+                  <h3 className="font-black text-slate-950">{p.name}</h3>
+                  <div className="mt-3 flex items-center justify-between">
+                    <p className="text-lg font-black">{money(p.price)}</p>
+                    <Button onClick={() => addToCart(p)} className="rounded-full bg-slate-950">Add</Button>
+                  </div>
+                </CardContent>
+              </Card>
+            </motion.div>
+          ))}
+        </div>
+      </section>
+    </div>
+  );
+}
+
+function SellerView() {
+  return (
+    <div className="mx-auto max-w-7xl px-4 py-8">
+      <div className="mb-6 flex flex-col justify-between gap-3 md:flex-row md:items-end">
+        <div><Pill tone="blue">Seller portal</Pill><h1 className="mt-3 text-3xl font-black">Simple enough for a beginner seller.</h1><p className="text-slate-500">Upload products, receive orders, and see payout status without confusion.</p></div>
+        <Button className="rounded-full bg-slate-950"><Plus className="mr-2 h-4 w-4" /> Add Product</Button>
+      </div>
+      <div className="grid gap-4 md:grid-cols-4">
+        <Stat icon={Package} label="Products" value="24" />
+        <Stat icon={ShoppingBag} label="Orders" value="31" />
+        <Stat icon={Wallet} label="Pending payout" value="GH₵1,240" />
+        <Stat icon={ShieldCheck} label="Trust score" value="96%" />
+      </div>
+      <div className="mt-6 grid gap-5 lg:grid-cols-[1fr_.8fr]">
+        <Card className="rounded-[2rem] border-0 shadow-sm"><CardContent className="p-5"><h2 className="mb-4 text-xl font-black">Recent orders</h2>{ordersSeed.map(o => <div key={o.id} className="mb-3 rounded-2xl bg-slate-50 p-4"><div className="flex items-center justify-between"><p className="font-bold">{o.product}</p><Pill tone="amber">{o.status}</Pill></div><p className="mt-1 text-sm text-slate-500">{o.customer} • {money(o.total)} • Commission {money(o.commission)}</p></div>)}</CardContent></Card>
+        <Card className="rounded-[2rem] border-0 shadow-sm"><CardContent className="p-5"><h2 className="text-xl font-black">Seller safety checklist</h2><div className="mt-4 space-y-3">{["Never share OTP or password.", "Payout detail changes need admin approval.", "Use only your own phone number.", "Report strange login alerts quickly."].map(t => <div key={t} className="flex items-center gap-3 rounded-2xl bg-emerald-50 p-3"><CheckCircle2 className="h-5 w-5 text-emerald-600" /><p className="text-sm font-semibold text-emerald-900">{t}</p></div>)}</div></CardContent></Card>
+      </div>
+    </div>
+  );
+}
+
+function AdminView() {
+  return (
+    <div className="mx-auto max-w-7xl px-4 py-8">
+      <div className="mb-6"><Pill tone="dark">Owner control center</Pill><h1 className="mt-3 text-3xl font-black">Admin dashboard protects the whole marketplace.</h1><p className="text-slate-500">Approve sellers, monitor orders, pause payouts, and control commission.</p></div>
+      <div className="grid gap-4 md:grid-cols-4"><Stat icon={Store} label="Stores" value="10" /><Stat icon={Receipt} label="Total orders" value="104" /><Stat icon={Wallet} label="Platform commission" value="GH₵2,820" /><Stat icon={AlertTriangle} label="Risk alerts" value="2" /></div>
+      <div className="mt-6 grid gap-5 lg:grid-cols-[1fr_.9fr]">
+        <Card className="rounded-[2rem] border-0 shadow-sm"><CardContent className="p-5"><h2 className="mb-4 text-xl font-black">Seller approvals</h2><div className="overflow-x-auto"><table className="w-full text-left text-sm"><thead><tr className="border-b text-slate-500"><th className="py-3">Store</th><th>Owner</th><th>Sales</th><th>Status</th><th>Payout</th></tr></thead><tbody>{sellersSeed.map(s => <tr key={s.name} className="border-b last:border-0"><td className="py-4 font-bold">{s.name}</td><td>{s.owner}</td><td>{money(s.sales)}</td><td><Pill tone={s.status === "Verified" ? "green" : "amber"}>{s.status}</Pill></td><td>{s.payout}</td></tr>)}</tbody></table></div></CardContent></Card>
+        <Card className="rounded-[2rem] border-0 shadow-sm"><CardContent className="p-5"><h2 className="text-xl font-black">Risk controls</h2><div className="mt-4 space-y-3">{[[LockKeyhole,"Payout change lock","When seller changes Momo/bank, payout pauses 48 hours."],[Eye,"Activity logs","Track logins, price edits, product changes, payout edits."],[Bell,"Login alerts","Seller receives alert when new device logs in."],[ShieldCheck,"Role protection","Customer, seller, and admin see different data."]].map(([Icon,title,desc]) => <div key={title} className="flex gap-3 rounded-2xl bg-slate-50 p-4"><Icon className="h-5 w-5" /><div><p className="font-bold">{title}</p><p className="text-sm text-slate-500">{desc}</p></div></div>)}</div></CardContent></Card>
+      </div>
+    </div>
+  );
+}
+
+function SecurityView() {
+  return (
+    <div className="mx-auto max-w-7xl px-4 py-8">
+      <div className="rounded-[2rem] bg-gradient-to-br from-slate-950 to-slate-800 p-6 text-white md:p-10">
+        <Pill tone="dark">Trust architecture</Pill>
+        <h1 className="mt-4 max-w-3xl text-4xl font-black">The marketplace must be built like money passes through it — because money does.</h1>
+        <p className="mt-3 max-w-2xl text-slate-300">This starter system is designed around beginner sellers, customer confidence, admin approval, and payout safety.</p>
+      </div>
+      <div className="mt-6 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+        {[
+          [UserRound,"Beginner seller onboarding","Short forms, simple labels, guided upload steps, and WhatsApp support."],
+          [ShieldCheck,"Verified stores only","Admin approves sellers before they can receive real orders."],
+          [Wallet,"Commission system","Default 10% demo commission shown clearly on every order."],
+          [LockKeyhole,"Payout lock","Changing payout number triggers admin review and payout delay."],
+          [Truck,"Delivery confirmation","Payout can wait until delivery status is confirmed."],
+          [LayoutDashboard,"Admin-first control","Owner has final control over sellers, orders, refunds, and suspicious accounts."],
+        ].map(([Icon,title,desc]) => <Card key={title} className="rounded-[2rem] border-0 shadow-sm"><CardContent className="p-6"><div className="mb-4 grid h-12 w-12 place-items-center rounded-2xl bg-slate-100"><Icon className="h-6 w-6" /></div><h3 className="text-lg font-black">{title}</h3><p className="mt-2 text-sm text-slate-500">{desc}</p></CardContent></Card>)}
+      </div>
+      <Card className="mt-6 rounded-[2rem] border-0 shadow-sm"><CardContent className="p-6"><h2 className="text-2xl font-black">Starter build roadmap</h2><div className="mt-5 grid gap-4 md:grid-cols-4">{["Frontend demo", "Firebase/Supabase database", "Paystack test checkout", "Seller/admin launch"].map((step, i) => <div key={step} className="rounded-2xl bg-slate-50 p-4"><p className="text-sm font-bold text-slate-400">Phase {i+1}</p><p className="mt-1 font-black">{step}</p></div>)}</div></CardContent></Card>
+    </div>
+  );
+}
+
+function CheckoutBar({ cart, clearCart }) {
+  const total = cart.reduce((sum, p) => sum + p.price, 0);
+  const commission = total * 0.1;
+  if (!cart.length) return null;
+  return (
+    <div className="fixed bottom-4 left-4 right-4 z-50 mx-auto max-w-4xl rounded-[1.5rem] bg-slate-950 p-4 text-white shadow-2xl">
+      <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+        <div><p className="font-black">{cart.length} item(s) selected • Total {money(total)}</p><p className="text-xs text-slate-300">Platform commission demo: {money(commission)} • Seller payout: {money(total - commission)}</p></div>
+        <div className="flex gap-2"><Button onClick={clearCart} variant="outline" className="rounded-full border-white/20 bg-transparent text-white hover:bg-white/10">Clear</Button><Button className="rounded-full bg-white text-slate-950 hover:bg-slate-100">Checkout Demo</Button></div>
+      </div>
+    </div>
+  );
+}
+
+export default function BigMarketplaceStarterApp() {
+  const [view, setView] = useState("shop");
+  const [cart, setCart] = useState([]);
+  const addToCart = (p) => setCart(prev => [...prev, p]);
+  return (
+    <div className="min-h-screen bg-slate-50 text-slate-950">
+      <Header view={view} setView={setView} />
+      {view === "shop" && <ShopView addToCart={addToCart} cart={cart} />}
+      {view === "seller" && <SellerView />}
+      {view === "admin" && <AdminView />}
+      {view === "security" && <SecurityView />}
+      <footer className="mx-auto max-w-7xl px-4 pb-28 pt-8">
+        <div className="grid gap-4 rounded-[2rem] bg-white p-5 shadow-sm md:grid-cols-3">
+          <div className="flex gap-3"><Phone className="h-5 w-5" /><div><p className="font-bold">Support</p><p className="text-sm text-slate-500">WhatsApp-ready seller help</p></div></div>
+          <div className="flex gap-3"><MapPin className="h-5 w-5" /><div><p className="font-bold">Local-first</p><p className="text-sm text-slate-500">Built for Ghanaian stores</p></div></div>
+          <div className="flex gap-3"><Clock3 className="h-5 w-5" /><div><p className="font-bold">Starter-friendly</p><p className="text-sm text-slate-500">Launch small, scale later</p></div></div>
+        </div>
+      </footer>
+      <CheckoutBar cart={cart} clearCart={() => setCart([])} />
+    </div>
+  );
+}

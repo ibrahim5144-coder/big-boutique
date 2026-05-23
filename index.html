@@ -419,7 +419,7 @@ Sent from BUYBIG.
       document.getElementById("adminProductCount").innerText=products.length;
       document.getElementById("storeCount").innerText=new Set(products.map(p=>p.storeName)).size;
 
-      box.innerHTML=products.map(p=>`
+     box.innerHTML = products.map(p => `
         <div class="card product">
           <img src="${p.image}" onerror="this.src='https://via.placeholder.com/900x650?text=BUYBIG'">
           <div class="product-body">

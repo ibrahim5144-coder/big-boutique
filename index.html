@@ -5,31 +5,30 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>B.I.G Market</title>
   <style>
-    * { box-sizing: border-box; }
-    body { margin: 0; font-family: Arial, sans-serif; background: #f5f7fb; color: #111827; }
-    header { background: #111827; color: white; padding: 18px 6%; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 10; }
-    .logo { font-size: 22px; font-weight: 900; }
-    nav button { margin-left: 8px; padding: 10px 14px; border: 0; border-radius: 20px; cursor: pointer; font-weight: 700; }
-    .hero { padding: 55px 6%; display: grid; grid-template-columns: 1.2fr .8fr; gap: 25px; align-items: center; }
-    .hero-box { background: #111827; color: white; border-radius: 28px; padding: 35px; }
-    .hero h1 { font-size: 45px; margin: 15px 0; line-height: 1.05; }
-    .tag { display: inline-block; background: #d1fae5; color: #065f46; padding: 8px 12px; border-radius: 20px; font-weight: 800; font-size: 13px; }
-    .card { background: white; border-radius: 22px; padding: 22px; box-shadow: 0 8px 25px rgba(0,0,0,.07); }
-    .grid { padding: 0 6% 50px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
-    .product img { width: 100%; height: 180px; object-fit: cover; border-radius: 18px; }
-    .price { font-size: 21px; font-weight: 900; }
-    .btn { background: #111827; color: white; border: 0; padding: 12px 16px; border-radius: 18px; cursor: pointer; font-weight: 800; }
-    .section { padding: 35px 6%; }
-    .dash { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; }
-    .hidden { display: none; }
-    table { width: 100%; border-collapse: collapse; background: white; border-radius: 18px; overflow: hidden; }
-    th, td { padding: 15px; border-bottom: 1px solid #e5e7eb; text-align: left; }
-    footer { padding: 30px 6%; background: #111827; color: white; }
-    @media(max-width: 800px) {
-      .hero, .grid, .dash { grid-template-columns: 1fr; }
-      .hero h1 { font-size: 34px; }
-      header { flex-direction: column; gap: 12px; }
-    }
+    *{box-sizing:border-box}
+    body{margin:0;font-family:Arial,sans-serif;background:#f5f7fb;color:#111827}
+    header{background:#111827;color:white;padding:18px 6%;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:10}
+    .logo{font-size:22px;font-weight:900}
+    nav button{margin-left:8px;padding:10px 14px;border:0;border-radius:20px;cursor:pointer;font-weight:700}
+    .section{padding:35px 6%}
+    .hero{padding:55px 6%;display:grid;grid-template-columns:1.2fr .8fr;gap:25px;align-items:center}
+    .hero-box{background:#111827;color:white;border-radius:28px;padding:35px}
+    .hero h1{font-size:45px;margin:15px 0;line-height:1.05}
+    .tag{display:inline-block;background:#d1fae5;color:#065f46;padding:8px 12px;border-radius:20px;font-weight:800;font-size:13px}
+    .card{background:white;border-radius:22px;padding:22px;box-shadow:0 8px 25px rgba(0,0,0,.07);margin-bottom:16px}
+    .grid{padding:0 6% 50px;display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+    .dash{display:grid;grid-template-columns:repeat(4,1fr);gap:15px}
+    .product img{width:100%;height:180px;object-fit:cover;border-radius:18px;background:#eee}
+    .price{font-size:21px;font-weight:900}
+    .btn{background:#111827;color:white;border:0;padding:12px 16px;border-radius:18px;cursor:pointer;font-weight:800}
+    .btn2{background:#e5e7eb;color:#111827;border:0;padding:12px 16px;border-radius:18px;cursor:pointer;font-weight:800}
+    input,textarea,select{width:100%;padding:13px;margin:8px 0;border:1px solid #d1d5db;border-radius:14px;font-size:15px}
+    table{width:100%;border-collapse:collapse;background:white;border-radius:18px;overflow:hidden}
+    th,td{padding:15px;border-bottom:1px solid #e5e7eb;text-align:left}
+    .hidden{display:none}
+    .notice{background:#ecfeff;border:1px solid #a5f3fc;color:#155e75;padding:13px;border-radius:16px;margin:12px 0}
+    footer{padding:30px 6%;background:#111827;color:white}
+    @media(max-width:800px){.hero,.grid,.dash{grid-template-columns:1fr}.hero h1{font-size:34px}header{flex-direction:column;gap:12px}}
   </style>
 </head>
 <body>
@@ -49,8 +48,8 @@
     <div class="hero-box">
       <span class="tag">Verified Ghana Stores</span>
       <h1>One simple marketplace for trusted boutiques.</h1>
-      <p>Customers shop. Sellers receive orders. Admin controls commission, payouts and seller approval.</p>
-      <button class="btn">Start Shopping</button>
+      <p>Customers shop. Sellers upload products. Admin controls trust, commission and payouts.</p>
+      <button class="btn" onclick="show('seller')">Join as Seller</button>
     </div>
     <div class="card">
       <h2>Secure Order Flow</h2>
@@ -63,61 +62,73 @@
   </div>
 
   <div class="section">
-    <h2>Featured Products</h2>
+    <h2>Live Products From Database</h2>
+    <p id="productStatus">Loading products...</p>
   </div>
 
   <div class="grid" id="products"></div>
 </section>
 
 <section id="seller" class="hidden section">
-  <span class="tag">Seller Dashboard</span>
-  <h1>Simple enough for beginner sellers.</h1>
+  <span class="tag">Seller Portal</span>
+  <h1>Seller Signup / Login</h1>
 
-  <div class="dash">
-    <div class="card"><h3>Products</h3><h2>24</h2></div>
-    <div class="card"><h3>Orders</h3><h2>31</h2></div>
-    <div class="card"><h3>Pending Payout</h3><h2>GH₵1,240</h2></div>
-    <div class="card"><h3>Trust Score</h3><h2>96%</h2></div>
+  <div id="authBox" class="card">
+    <h2>Create Seller Account</h2>
+    <input id="sellerName" placeholder="Store name e.g. Accra Belle Store" />
+    <input id="email" type="email" placeholder="Email address" />
+    <input id="password" type="password" placeholder="Password" />
+    <button class="btn" onclick="signupSeller()">Create Account</button>
+    <button class="btn2" onclick="loginSeller()">Login</button>
+    <p class="notice">Use your own email. Never share your password or OTP.</p>
   </div>
 
-  <div class="card" style="margin-top:20px;">
-    <h2>Seller Safety Rules</h2>
-    <p>🔐 Never share password or OTP.</p>
-    <p>📱 Use your own phone number.</p>
-    <p>💰 Payout detail changes need admin approval.</p>
-    <p>🚨 Report strange login alerts quickly.</p>
+  <div id="sellerDashboard" class="hidden">
+    <div class="card">
+      <h2>Welcome, <span id="currentSeller">Seller</span></h2>
+      <p>You are logged in. You can now upload products to the live database.</p>
+      <button class="btn2" onclick="logoutSeller()">Logout</button>
+    </div>
+
+    <div class="card">
+      <h2>Upload Product</h2>
+      <input id="pName" placeholder="Product name" />
+      <input id="pPrice" type="number" placeholder="Price in Ghana cedis" />
+      <input id="pCategory" placeholder="Category e.g. Shoes, Clothes, Bags" />
+      <input id="pImage" placeholder="Image URL" />
+      <textarea id="pDesc" placeholder="Short product description"></textarea>
+      <button class="btn" onclick="uploadProduct()">Save Product</button>
+      <p class="notice">For now, use image links. Later we will add real image upload.</p>
+    </div>
   </div>
 </section>
 
 <section id="admin" class="hidden section">
   <span class="tag">Owner Control Center</span>
-  <h1>Admin protects the whole marketplace.</h1>
+  <h1>Admin Dashboard</h1>
 
   <div class="dash">
-    <div class="card"><h3>Stores</h3><h2>10</h2></div>
-    <div class="card"><h3>Orders</h3><h2>104</h2></div>
-    <div class="card"><h3>Commission</h3><h2>GH₵2,820</h2></div>
-    <div class="card"><h3>Risk Alerts</h3><h2>2</h2></div>
+    <div class="card"><h3>Stores</h3><h2 id="storeCount">0</h2></div>
+    <div class="card"><h3>Products</h3><h2 id="adminProductCount">0</h2></div>
+    <div class="card"><h3>Commission Demo</h3><h2>10%</h2></div>
+    <div class="card"><h3>Risk Rule</h3><h2>Auth Write</h2></div>
   </div>
 
-  <h2>Seller Approval Table</h2>
-  <table>
-    <tr><th>Store</th><th>Owner</th><th>Status</th><th>Payout</th></tr>
-    <tr><td>Kumasi Drip Boutique</td><td>Mariam</td><td>Verified</td><td>Approved</td></tr>
-    <tr><td>Accra Belle Store</td><td>Selina</td><td>Verified</td><td>Approved</td></tr>
-    <tr><td>TimeLux Ghana</td><td>Kofi</td><td>Review</td><td>Paused 48h</td></tr>
-  </table>
+  <div class="card">
+    <h2>Admin Note</h2>
+    <p>This is still a starter admin dashboard. Later we will add real admin-only login, approve sellers, pause payouts, delete bad products, and review orders.</p>
+  </div>
 </section>
 
 <section id="trust" class="hidden section">
   <span class="tag">Trust System</span>
-  <h1>Security must be part of the business model.</h1>
+  <h1>Security is part of the business.</h1>
 
   <div class="dash">
-    <div class="card"><h3>🔐 Login Protection</h3><p>Strong passwords and login alerts.</p></div>
-    <div class="card"><h3>💰 Payout Lock</h3><p>Changing Momo details pauses payout.</p></div>
-    <div class="card"><h3>✅ Seller Verification</h3><p>Admin approves sellers before selling.</p></div>
-    <div class="card"><h3>🚚 Delivery Confirmation</h3><p>Payout after order confirmation.</p></div>
+    <div class="card"><h3>🔐 Login Protection</h3><p>Sellers must create account before uploading.</p></div>
+    <div class="card"><h3>💰 Payout Lock</h3><p>Changing Momo details will require admin approval later.</p></div>
+    <div class="card"><h3>✅ Seller Verification</h3><p>Admin approval system comes next.</p></div>
+    <div class="card"><h3>🚚 Delivery Confirmation</h3><p>Payout after delivery confirmation later.</p></div>
   </div>
 </section>
 
@@ -126,41 +137,187 @@
   <p>Built for Ghanaian stores. Start small. Scale big.</p>
 </footer>
 
-<script>
-  const products = [
-    { name: "Premium Men's Sneakers", store: "Kumasi Drip Boutique", price: 320, image: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=800" },
-    { name: "Elegant Ladies Handbag", store: "Accra Belle Store", price: 180, image: "https://images.unsplash.com/photo-1590874103328-eac38a683ce7?w=800" },
-    { name: "Streetwear Hoodie", store: "Urban Kings GH", price: 230, image: "https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=800" },
-    { name: "Smart Business Watch", store: "TimeLux Ghana", price: 450, image: "https://images.unsplash.com/photo-1524592094714-0f0654e20314?w=800" }
-  ];
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.13.0/firebase-app.js";
+  import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.13.0/firebase-auth.js";
+  import { getDatabase, ref, push, set, onValue } from "https://www.gstatic.com/firebasejs/12.13.0/firebase-database.js";
 
-  let cart = 0;
+  const firebaseConfig = {
+    apiKey: "AIzaSyAu7ybOy2_dgaJLYIaPOlDUfumGBgdMvgI",
+    authDomain: "big-marketplace-1284e.firebaseapp.com",
+    projectId: "big-marketplace-1284e",
+    storageBucket: "big-marketplace-1284e.firebasestorage.app",
+    messagingSenderId: "625405992028",
+    appId: "1:625405992028:web:9921221439e5b266f45a99",
+    measurementId: "G-15NL0RFWWB",
+    databaseURL: "https://big-marketplace-1284e-default-rtdb.firebaseio.com"
+  };
 
-  function loadProducts() {
-    const box = document.getElementById("products");
-    box.innerHTML = products.map(p => `
-      <div class="card product">
-        <img src="${p.image}">
-        <h3>${p.name}</h3>
-        <p>${p.store}</p>
-        <p class="price">GH₵${p.price}</p>
-        <button class="btn" onclick="addToCart(${p.price})">Add to Cart</button>
-      </div>
-    `).join("");
-  }
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const db = getDatabase(app);
 
-  function addToCart(price) {
-    cart++;
-    const commission = price * 0.10;
-    alert("Added to cart. Platform commission demo: GH₵" + commission);
-  }
+  let currentUser = null;
+  let currentStoreName = "";
 
-  function show(page) {
+  window.show = function(page) {
     ["shop","seller","admin","trust"].forEach(id => {
       document.getElementById(id).classList.add("hidden");
     });
     document.getElementById(page).classList.remove("hidden");
+  };
+
+  window.signupSeller = async function() {
+    const storeName = document.getElementById("sellerName").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const password = document.getElementById("password").value.trim();
+
+    if (!storeName || !email || !password) {
+      alert("Fill store name, email and password.");
+      return;
+    }
+
+    try {
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      const uid = userCredential.user.uid;
+
+      await set(ref(db, "users/" + uid), {
+        uid,
+        storeName,
+        email,
+        role: "seller",
+        approved: false,
+        createdAt: new Date().toISOString()
+      });
+
+      alert("Seller account created. You can now upload products.");
+    } catch (error) {
+      alert(error.message);
+    }
+  };
+
+  window.loginSeller = async function() {
+    const email = document.getElementById("email").value.trim();
+    const password = document.getElementById("password").value.trim();
+
+    if (!email || !password) {
+      alert("Enter email and password.");
+      return;
+    }
+
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
+      alert("Logged in successfully.");
+    } catch (error) {
+      alert(error.message);
+    }
+  };
+
+  window.logoutSeller = async function() {
+    await signOut(auth);
+    alert("Logged out.");
+  };
+
+  window.uploadProduct = async function() {
+    if (!currentUser) {
+      alert("Login first before uploading.");
+      return;
+    }
+
+    const name = document.getElementById("pName").value.trim();
+    const price = Number(document.getElementById("pPrice").value);
+    const category = document.getElementById("pCategory").value.trim();
+    const image = document.getElementById("pImage").value.trim();
+    const desc = document.getElementById("pDesc").value.trim();
+
+    if (!name || !price || !category || !image) {
+      alert("Fill product name, price, category and image URL.");
+      return;
+    }
+
+    const productRef = push(ref(db, "products"));
+    await set(productRef, {
+      id: productRef.key,
+      name,
+      price,
+      category,
+      image,
+      desc,
+      sellerId: currentUser.uid,
+      sellerEmail: currentUser.email,
+      storeName: currentStoreName || "New Seller Store",
+      approved: true,
+      createdAt: new Date().toISOString()
+    });
+
+    document.getElementById("pName").value = "";
+    document.getElementById("pPrice").value = "";
+    document.getElementById("pCategory").value = "";
+    document.getElementById("pImage").value = "";
+    document.getElementById("pDesc").value = "";
+
+    alert("Product uploaded successfully.");
+  };
+
+  onAuthStateChanged(auth, (user) => {
+    currentUser = user;
+
+    if (user) {
+      document.getElementById("authBox").classList.add("hidden");
+      document.getElementById("sellerDashboard").classList.remove("hidden");
+
+      onValue(ref(db, "users/" + user.uid), (snapshot) => {
+        const data = snapshot.val();
+        currentStoreName = data?.storeName || user.email;
+        document.getElementById("currentSeller").innerText = currentStoreName;
+      });
+    } else {
+      document.getElementById("authBox").classList.remove("hidden");
+      document.getElementById("sellerDashboard").classList.add("hidden");
+      currentStoreName = "";
+    }
+  });
+
+  function loadProducts() {
+    const box = document.getElementById("products");
+    const status = document.getElementById("productStatus");
+
+    onValue(ref(db, "products"), (snapshot) => {
+      const data = snapshot.val();
+
+      if (!data) {
+        status.innerText = "No products yet. Login as seller and upload the first product.";
+        box.innerHTML = "";
+        document.getElementById("adminProductCount").innerText = "0";
+        return;
+      }
+
+      const products = Object.values(data).reverse();
+      status.innerText = products.length + " product(s) found.";
+      document.getElementById("adminProductCount").innerText = products.length;
+
+      const uniqueStores = new Set(products.map(p => p.storeName));
+      document.getElementById("storeCount").innerText = uniqueStores.size;
+
+      box.innerHTML = products.map(p => `
+        <div class="card product">
+          <img src="${p.image}" onerror="this.src='https://via.placeholder.com/800x500?text=B.I.G+Market'">
+          <h3>${p.name}</h3>
+          <p>${p.storeName || "Seller Store"}</p>
+          <p>${p.category || "General"}</p>
+          <p>${p.desc || ""}</p>
+          <p class="price">GH₵${p.price}</p>
+          <button class="btn" onclick="buyDemo(${p.price})">Buy Demo</button>
+        </div>
+      `).join("");
+    });
   }
+
+  window.buyDemo = function(price) {
+    const commission = price * 0.10;
+    const sellerAmount = price - commission;
+    alert("Order demo created. Platform commission: GH₵" + commission + ". Seller gets: GH₵" + sellerAmount);
+  };
 
   loadProducts();
 </script>

@@ -369,10 +369,9 @@ Phone: ${customerPhone}
 Location: ${customerLocation}
 Note: ${customerNote || "None"}
 
-Platform commission: GH₵${commission}
-Seller gets: GH₵${sellerAmount}
+Please confirm availability, delivery cost, and payment details with the customer.
 
-Please contact the customer to confirm availability and delivery.`;
+Sent from BUYBIG.
 
     const sellerPhone = cleanPhone(selectedProduct.sellerWhatsapp);
     const whatsappLink = sellerPhone ? "https://wa.me/" + sellerPhone + "?text=" + encodeURIComponent(message) : "";
